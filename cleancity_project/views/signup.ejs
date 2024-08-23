@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-image: url('bg-image.jpg');background-attachment: fixed;background-repeat: no-repeat;background-position: center;background-size: cover; margin: 0; padding: 0;">
+
+    <div style="width: 100%; padding: 20px; text-align: center;">
+        <h1 style="color: #18f276; font-size: 50px;">CleanCity</h1>
+    </div>
+
+    <div style="display: flex; justify-content: center; margin-top: 50px;">
+        <!-- Sign Up Section -->
+        <div style="width: 30%; background-color: rgba(222, 225, 222, 0); padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            <h2 style="color: #0c0101; font-size: 24px;">Sign Up</h2>
+            <form action="/signup" method="post">
+                <input type="text"  placeholder="First name" name="firstname" required style="width: 48%; padding: 12px; margin: 8px 1%; box-sizing: border-box; font-size: 16px;">
+                <input type="text" placeholder="Last name" required name="lastname" style="width: 48%; padding: 12px; margin: 8px 1%; box-sizing: border-box; font-size: 16px;">
+                <input type="email" placeholder="Email" required name="email" style="width: 100%; padding: 12px; margin: 8px 0; box-sizing: border-box; font-size: 16px;">
+                <input type="date" placeholder="Date of Birth" required name="date" style="width: 100%; padding: 12px; margin: 8px 0; box-sizing: border-box; font-size: 16px;">
+                <input type="password" placeholder="New password" required name="password" style="width: 100%; padding: 12px; margin: 8px 0; box-sizing: border-box; font-size: 16px;">
+                <button type="submit" style="width: 100%; padding: 12px; background-color: #2aa4b7; color: white; font-size: 18px; border: none; cursor: pointer; margin-top: 10px;">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cleaning Drives</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>CleanCity</h1>
+        <% if (locals.user) { %>
+            <nav>
+                <a href="/home">Home</a>
+                <a href="/capture">Report Litter</a>
+                <a href="/profile">Profile</a>
+                <a href="#admin">Admin</a>
+                <a href="#notifications">Notifications</a>
+                <a href="/drives">Cleaning Drives</a>
+                <a href="/logout">LogOut</a>
+            </nav>
+        <% } else { %>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/signin">SignIn</a>
+                <a href="/signup">SignUp</a>
+            </nav>
+        <% } %>
+    </header>
+
+    <main>
+        <!-- Section to Create New Cleaning Drive -->
+        <section id="create-drive">
+            <h2>Create New Cleaning Drive</h2>
+            <form id="driveForm">
+                <input type="text" id="location" placeholder="Location" required>
+                <input type="date" id="date" required>
+                <input type="number" id="volunteers" placeholder="No. of Volunteers Required" min="1" required>
+                <button type="submit">Create Drive</button>
+            </form>
+        </section>
+
+        <!-- Section to Display Cleaning Drives -->
+        <section id="drives-section">
+            <h2>My Cleaning Drives</h2>
+        </section>
+    </main>
+
+    <script>
+        // Ensure that EJS is properly rendering the drives array into a valid JSON string
+        const cleaningDrives =renderDrives<%-JSON.stringify(drives) %>;
+        const drivesSection = document.getElementById('drives-section');
+
+        // Function to render drives
+        function renderDrives() {
+            drivesSection.innerHTML = ''; // Clear previous drives
+            cleaningDrives.forEach(drive => {
+                const driveDiv = document.createElement('div');
+                driveDiv.className = 'drive-container';
+                driveDiv.innerHTML += `
+                    <h3>${drive.location}</h3>
+                    <div class="drive-details">
+                        <strong>Date:</strong> ${drive.date}
+                    </div>
+                    <div class="drive-details">
+                        <strong>Volunteers Required:</strong> ${drive.volunteers}
+                    </div>
+                `;
+                drivesSection.appendChild(driveDiv);
+            });
+        }
+
+        // Initial render of drives
+        renderDrives();
+    </script>
+</body>
+</html>

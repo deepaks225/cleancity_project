@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cleaning Drives</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        #create-drive {
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        #create-drive h2 {
+            margin-top: 0;
+        }
+        input[type="text"], input[type="date"], input[type="number"] {
+            width: calc(100% - 24px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .drive-container {
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .drive-container h3 {
+            margin-top: 0;
+        }
+        .drive-details {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Cleaning Drives</h1>
+        <nav>
+            <a href="/home">Home</a>
+            <a href="/capture">Report Litter</a>
+            <a href="/profile">Profile</a>
+            <a href="/drives">Cleaning Drives</a>
+            <a href="/logout">LogOut</a>
+        </nav>
+    </header>
+
+    <!-- Section to Create New Cleaning Drive -->
+    <section id="create-drive">
+        <h2>Create New Cleaning Drive</h2>
+        <form id="driveForm">
+            <input type="text" id="location" placeholder="Location" required>
+            <input type="date" id="date" required>
+            <input type="number" id="volunteers" placeholder="No. of Volunteers Required" min="1" required>
+            <button type="submit">Create Drive</button>
+        </form>
+    </section>
+
+    <!-- Section to Display Cleaning Drives -->
+    <section id="drives-section">
+        <h2>My Cleaning Drives</h2>
+        <!-- Cleaning drives will be dynamically inserted here -->
+    </section>
+
+    <script>
+        const driveForm = document.getElementById('driveForm');
+        const drivesSection = document.getElementById('drives-section');
+
+        // Example data (in a real application, this could come from a database)
+        const cleaningDrives = [
+            {
+                location: "Central Park",
+                date: "2024-09-15",
+                volunteers: 20
+            },
+            {
+                location: "Beachside",
+                date: "2024-09-22",
+                volunteers: 15
+            }
+        ];
+
+        // Function to render drives
+        function renderDrives() {
+            drivesSection.innerHTML = ''; // Clear previous drives
+            cleaningDrives.forEach(drive => {
+                const driveDiv = document.createElement('div');
+                driveDiv.className = 'drive-container';
+                driveDiv.innerHTML = `
+                    <h3>${drive.location}</h3>
+                    <div class="drive-details">
+                        <strong>Date:</strong> ${drive.date}
+                    </div>
+                    <div class="drive-details">
+                        <strong>Volunteers Required:</strong> ${drive.volunteers}
+                    </div>
+                `;
+                drivesSection.appendChild(driveDiv);
+            });
+        }
+
+        // Event listener for form submission to create new drive
+        driveForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newDrive = {
+                location: document.getElementById('location').value,
+                date: document.getElementById('date').value,
+                volunteers: document.getElementById('volunteers').value
+            };
+            cleaningDrives.push(newDrive);
+            renderDrives(); // Re-render drives after adding a new one
+            driveForm.reset(); // Clear form inputs
+        });
+
+        // Initial render of drives
+        renderDrives();
+    </script>
+</body>
+</html>
