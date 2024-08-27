@@ -4,6 +4,7 @@ const user = require('../models/user.js')
 const multer = require('multer')
 const {complainModel} = require('../models/complain.js')
 const path = require('path');
+const drives = require('../models/drives.js')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'uploads/');
@@ -89,15 +90,50 @@ router.post('/upload', upload.single('image'), async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
-router.get('/', (req, res) => {
-    const userDrives = [{location:"Wadala", date:"2022/3/03", volunteers:15},
-        {location:"Bandra", date:"2022/3/04", volunteers:20},
-        {location:"Bandra", date:"2022/3/04", volunteers:20},
-    ]
-    res.render('home', {drives: userDrives});
+router.get('/drives', async(req, res) => {
+    
+    const userDrives = await drives.find({});
+    res.render('drives', {drives: userDrives});
 });
+
+router.post('/drives',async(req, res)=>{
+    const {location, date, number} = req.body;
+    await drives.create({location, date, number});
+
+    const userDrives = await drives.find({});
+    res.render('drives',{user: req.user,drives: userDrives});
+
+})
 router.get('/logout',(req , res)=>{
     return res.clearCookie('token').render('index');
-})
+});
+router.get('/analytics', (req, res) => {
+    // Example data, replace with actual database queries
+    const totalDrives = 10;
+    const totalVolunteers = 150;
+    const totalLocations = 8;
+    const totalLitter = 300; // kg
+
+    const drivesData = [
+        { location: 'Central Park', litterCollected: 50 },
+        { location: 'Beachside', litterCollected: 40 },
+        { location: 'Downtown', litterCollected: 60 },
+        { location: 'Riverside', litterCollected: 30 },
+        { location: 'Uptown', litterCollected: 20 },
+        { location: 'Suburbs', litterCollected: 50 },
+        { location: 'Industrial Area', litterCollected: 20 },
+        { location: 'Old Town', litterCollected: 30 }
+    ];
+
+    res.render('/analytics', {
+        user: req.user,
+        totalDrives,
+        totalVolunteers,
+        totalLocations,
+        totalLitter,
+        drivesData
+    });
+});
+
 
 module.exports = router

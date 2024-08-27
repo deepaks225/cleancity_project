@@ -32,10 +32,10 @@
         <!-- Section to Create New Cleaning Drive -->
         <section id="create-drive">
             <h2>Create New Cleaning Drive</h2>
-            <form id="driveForm">
-                <input type="text" id="location" placeholder="Location" required>
-                <input type="date" id="date" required>
-                <input type="number" id="volunteers" placeholder="No. of Volunteers Required" min="1" required>
+            <form id="driveForm" method="post" action="/drives">
+                <input type="text" id="location" placeholder="Location" name="location" required>
+                <input type="date" id="date" name="date" required>
+                <input type="number" id="volunteers" name="number" placeholder="No. of Volunteers Required" min="1" required>
                 <button type="submit">Create Drive</button>
             </form>
         </section>
@@ -47,23 +47,22 @@
     </main>
 
     <script>
-        // Ensure that EJS is properly rendering the drives array into a valid JSON string
-        const cleaningDrives =renderDrives<%-JSON.stringify(drives) %>;
+       const cleaningDrives = <%- JSON.stringify(drives) %>;
+
         const drivesSection = document.getElementById('drives-section');
 
-        // Function to render drives
         function renderDrives() {
-            drivesSection.innerHTML = ''; // Clear previous drives
+            drivesSection.innerHTML = '';
             cleaningDrives.forEach(drive => {
                 const driveDiv = document.createElement('div');
                 driveDiv.className = 'drive-container';
-                driveDiv.innerHTML += `
+                driveDiv.innerHTML = `
                     <h3>${drive.location}</h3>
                     <div class="drive-details">
                         <strong>Date:</strong> ${drive.date}
                     </div>
                     <div class="drive-details">
-                        <strong>Volunteers Required:</strong> ${drive.volunteers}
+                        <strong>Volunteers Required:</strong> ${drive.number}
                     </div>
                 `;
                 drivesSection.appendChild(driveDiv);
