@@ -66,6 +66,10 @@
         <form action="/signin" method="post">
             <input type="email" placeholder="Email or Phone" required name="email">
             <input type="password" placeholder="Password" required name="password">
+            <select name="role" id="role">
+                <option value="admin">admin</option>
+                <option value="user">user</option>  
+            </select>
             <button type="submit">Log In</button>
         </form>
     </div>

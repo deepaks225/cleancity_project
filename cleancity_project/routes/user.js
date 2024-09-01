@@ -19,9 +19,7 @@ router.get('/',(req, res)=>{
     return res.render('index')
 })
 router.get('/profile',async(req, res)=>{
-    // console.log(req.user)
-    const User = await user.findById(req.user.id)
-    // console.log(User)      
+    const User = await user.findById(req.user.id) 
     return res.render('profile', {
         user: User, 
     });
@@ -43,31 +41,16 @@ router.post('/signup', async (req, res) => {
     const password = req.body.password;
     const email = req.body.email;
     const date = req.body.date;
-    console.log(firstname);  
 
     try {
-        const User = await new user({ firstname, lastname, email, date, password });
-        await User.save();
-        return res.render('index',{user : User});
+        const User = await user.create({ firstname, lastname, email, date, password });
+
+        return res.render('signin',{user : User});
     } catch (error) {
         console.error(error);
         return res.status(500).send("Error occurred while creating the user.");
     }
 });
-
-router.get('/signin',(req, res)=>{
-    return res.render('signin')
-}) 
-
-router.post('/signin',async(req, res)=>{
-    const {email, password} = await req.body;
-    const token = await user.matchPassword(email,password) 
-    const User = await user.find({email}) 
-    if(token)
-        return res.cookie("token", token).render('index' , {user: User})
-    else
-        return res.render('signin')
-})
 
 router.get('/capture',(req, res)=>{
     return res.render('capture',{user: req.user})
@@ -92,8 +75,8 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 });
 router.get('/drives', async(req, res) => {
     
-    const userDrives = await drives.find({});
-    res.render('drives', {drives: userDrives});
+    const userDrives = await drives.find({});    
+    res.render('drives', {user: req.user,drives: userDrives});
 });
 
 router.post('/drives',async(req, res)=>{
@@ -107,6 +90,7 @@ router.post('/drives',async(req, res)=>{
 router.get('/logout',(req , res)=>{
     return res.clearCookie('token').render('index');
 });
+
 router.get('/analytics', (req, res) => {
     // Example data, replace with actual database queries
     const totalDrives = 10;
@@ -125,7 +109,7 @@ router.get('/analytics', (req, res) => {
         { location: 'Old Town', litterCollected: 30 }
     ];
 
-    res.render('/analytics', {
+    res.render('analytics', {
         user: req.user,
         totalDrives,
         totalVolunteers,
