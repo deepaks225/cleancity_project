@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleanCity</title>
     <style>
+        /* Your existing styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -15,23 +16,29 @@
         header {
             background-color: #333;
             color: white;
-            padding: 10px 0;
+            padding: 1rem;
             text-align: center;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
         }
+        
+        nav {
+            margin-top: 10px;
+        }
+
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 16px;
+            margin: 0 1rem;
+            font-size: 1rem;
         }
         nav a:hover {
             text-decoration: underline;
         }
         h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 2rem;
         }
+
         div.inline {
             display: inline-block;
             vertical-align: top;
@@ -71,6 +78,7 @@
             border: 1px solid #ccc;
             margin-top: 10px;
             margin-bottom: 10px;
+            padding: 10px;
         }
         button[type="submit"] {
             display: block;
@@ -91,15 +99,14 @@
 </head>
 <body>
     <header>
-        <h1>CleanCity</h1>
+        <h1>Report Litter</h1>
         <% if (locals.user) { %>
             <nav>
                 <a href="/home">Home</a>
                 <a href="/capture">Report Litter</a>
                 <a href="/profile">Profile</a>
-                 
                 <a href="#notifications">Notifications</a>
-                <a href=" /analytics">Analytics</a>
+                <a href="/analytics">Analytics</a>
                 <a href="/drives">Cleaning Drives</a>
                 <a href="/logout">LogOut</a>
             </nav>
@@ -125,7 +132,7 @@
         <input type="file" name="image" id="imageInput" style="display: none;">
         <div>
             <h2>Write your complaint</h2>
-            <input type="text" name="complain" id="complain">
+            <input type="text" name="complain" id="complain" placeholder="Describe the litter here...">
         </div>
         <button type="submit">Upload</button>
     </form>
@@ -196,6 +203,8 @@
                     } catch (error) {
                         console.log('Error uploading file:', error);
                     }
+                }, (error) => {
+                    alert('Geolocation error: ' + error.message);
                 });
             } else {
                 alert("Geolocation is not supported by this browser.");

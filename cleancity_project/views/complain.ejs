@@ -7,22 +7,28 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <div class="navbar">
-        <ul>
-            <li><a href="/admin">Home</a></li>
-            <% if (locals.user) { %>
-                <li><a href="/admin">Collectors</a></li>
-                <li><a href="/admin/user">Users</a></li>
-                <li><a href="/admin/complain">Complains</a></li>
-                <li><a href="/admin">Tasks</a></li>
-                <li><a href="/admin/logout">Logout</a></li>
-            <% } else { %>
-                <li><a href="/signin">Signin</a></li>
-                <li><a href="/signup">Signup</a></li>
-            <% } %>
-        </ul>
-    </div>
-    
+    <header>
+        <h1>CleanCity</h1>
+        <% if (locals.user) { %>
+            
+            <nav>
+                <a href="/admin">Home</a>
+                <a href="/admin/collector">Collectors</a>
+                <a href="/admin/create">Create</a>
+                <a href="/admin/user">Users</a>
+                <a href="/admin/complain">Complains</a>
+                <a href="/admin/task">Tasks</a>
+                <a href="/admin/logout">Logout</a>
+            </nav>
+        <% } else { %>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/signin">Signin</a>
+                <a href="/signup">Signup</a>
+            </nav>
+        <% } %>
+    </header>
+
     <h1><% complains.forEach(element => { %>
      <%= element.complain %><hr>
     <% }) %></h1>

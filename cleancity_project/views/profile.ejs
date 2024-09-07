@@ -6,116 +6,178 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleanCity - Profile</title>
 </head>
-<style>body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-    margin: 0;
-    padding: 0;
-}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        padding: 0;
+    }
 
-header {
-    background-color: #333;
-    padding: 10px 0;
-    color: white;
-    text-align: center;
-}
+    header {
+        background-color: #333;
+        padding: 1rem;
+        color: white;
+        text-align: center;
+    }
 
-header nav a {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
-}
+    header nav {
+        margin-top: 15px;
+    }
 
-.profile-container {
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    header nav a {
+        color: white;
+        margin: 0 1rem;
+        text-decoration: none;
+    }
 
-.profile-header {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-}
+    .profile-container {
+        max-width: 900px;
+        margin: 20px auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-.profile-picture img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-right: 20px;
-    object-fit: cover;
-}
+    .profile-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
 
-.profile-info h1 {
-    margin: 0;
-    font-size: 24px;
-    color: #333;
-}
+    .profile-picture {
+        flex-shrink: 0;
+        margin-right: 20px;
+    }
 
-.profile-info p {
-    color: #666;
-    margin: 5px 0;
-}
+    .profile-picture img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 
-.profile-body h2 {
-    color: #8f3b98;
-    margin-bottom: 10px;
-}
+    .profile-info h1 {
+        margin: 0;
+        font-size: 28px;
+        color: #333;
+    }
 
-.profile-body p {
-    color: #333;
-}
+    .profile-info p {
+        color: #666;
+        margin: 5px 0;
+    }
 
-.profile-body ul {
-    list-style: none;
-    padding: 0;
-}
+    .details-section {
+        margin-bottom: 20px;
+    }
 
-.profile-body ul li {
-    background-color: #f0f2f5;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
+    .details-section h2 {
+        font-size: 22px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .details-section p {
+        color: #555;
+    }
+
+    .posts-section {
+        margin-top: 20px;
+    }
+
+    .posts-section h2 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .post {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .post h3 {
+        font-size: 20px;
+        margin: 0 0 10px 0;
+        color: #333;
+    }
+
+    .post img {
+        max-width: 100%;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .post p {
+        color: #555;
+    }
 </style>
+
 <body>
     <header>
+        <h1>User Profile</h1>
         <% if (locals.user) { %>
-            <nav>
-                <a href="/home">Home</a>
-                <a href="/capture">Report Litter</a>
-                <a href="/profile">Profile</a>
-                <a href="#notifications">Notifications</a>
-                <a href=" /analytics">Analytics</a>
-                <a href="/drives">Cleaning Drives</a>
-                <a href="/logout">LogOut</a>
-            </nav>
+        <nav>
+            <a href="/home">Home</a>
+            <a href="/capture">Report Litter</a>
+            <a href="/profile">Profile</a>
+            <a href="#notifications">Notifications</a>
+            <a href="/analytics">Analytics</a>
+            <a href="/drives">Cleaning Drives</a>
+            <a href="/logout">LogOut</a>
+        </nav>
         <% } else { %>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/signin">SignIn</a>
-                <a href="/signup">SignUp</a>
-            </nav>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/signin">SignIn</a>
+            <a href="/signup">SignUp</a>
+        </nav>
         <% } %>
     </header>
 
     <div class="profile-container">
         <div class="profile-header">
             <div class="profile-picture">
-                <img src="monkey.png" alt="Profile Picture">
+                <img src="<%= locals.user.profilePicture || '/images/default.png' %>" alt="Profile Picture">
             </div>
             <div class="profile-info">
                 <h1><%= locals.user.firstname %> <%= locals.user.lastname %></h1>
-                <p>Email: <%= locals.user.email %></p>
-                <p>Date of Birth: <%= locals.user.date %></p>
             </div>
         </div>
+        
+
+        <div class="details-section">
+            <h2>Details</h2>
+            <p>Email: <%= locals.user.email %></p>
+            <p>Date of Birth: <%= locals.user.date %></p>
+        </div>
+
+        <div class="posts-section">
+    <h2>Posts</h2>
+    <% if (locals.user.reports && locals.user.reports.length > 0) { %>
+        <% locals.user.reports.forEach(report => { %>
+            <div class="post">
+                <h3>Reported on <%= new Date(report.date).toLocaleString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric', 
+                    hour: '2-digit', 
+                    minute: '2-digit'
+                }) %></h3>
+                <img src="<%= report.imageURL %>" alt="Litter Image">
+                <p><%= report.complain %></p>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <p>No reports available.</p>
+    <% } %>
+</div>
+        
     </div>
 </body>
 

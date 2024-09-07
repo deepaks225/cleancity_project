@@ -4,21 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleanCity Analytics</title>
-    <link rel="stylesheet" href="/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1rem;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        #analytics h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.75rem;
+            color: #333;
+        }
+
+        .analytics-metrics {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+        }
+
+        .metric {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 22%;
+        }
+
+        .metric h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .metric p {
+            font-size: 1.5rem;
+            color: #27ae60;
+            margin: 0;
+        }
+
+        .chart-container {
+            max-width: 100%;
+            margin: auto;
+        }
+
+        #drivesChart {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>CleanCity</h1>
+        <h1>Analytics</h1>
         <% if (locals.user) { %>
             <nav>
                 <a href="/home">Home</a>
                 <a href="/capture">Report Litter</a>
-                <a href="/profile">Profile</a>
-                 
+                <a href="/profile">Profile</a> 
                 <a href="#notifications">Notifications</a>
-                <a href="/drives">Cleaning Drives</a>
                 <a href="/analytics">Analytics</a>
+                <a href="/drives">Cleaning Drives</a>
                 <a href="/logout">LogOut</a>
             </nav>
         <% } else { %>

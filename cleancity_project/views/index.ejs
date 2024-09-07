@@ -14,7 +14,6 @@
                 <a href="/home">Home</a>
                 <a href="/capture">Report Litter</a>
                 <a href="/profile">Profile</a>
-                 
                 <a href="#notifications">Notifications</a>
                 <a href="/analytics">Analytics</a>
                 <a href="/drives">Cleaning Drives</a>
@@ -40,6 +39,17 @@
             <h2>Here,In the home section you can see all the reported litter posts.</h2>
         </section>
         
+        <% if (locals.user) { %>
+            <section id="home">
+                <% complain.forEach(complains => { %>
+                    <%= complains %>
+                    <%=  %>
+                    <br>
+                <% }) %>
+            </section>
+           
+        <% } %>
+
     </main>
 </body>
 </html>

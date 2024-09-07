@@ -5,30 +5,40 @@ const multer = require('multer')
 const {complainModel} = require('../models/complain.js')
 const path = require('path');
 const drives = require('../models/drives.js')
+const fs = require('fs');
+// const path = require('path');
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        const dir = 'public/images/uploads';
+        // Check if directory exists
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true }); // Create the directory if it doesn't exist
+        }
+        cb(null, dir);
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
+        cb(null, Date.now() + path.extname(file.originalname)); // Custom filename with timestamp
     }
 });
+
+
 const upload = multer({ storage: storage });
 
 router.get('/',(req, res)=>{
     return res.render('index')
 })
 router.get('/profile',async(req, res)=>{
-    const User = await user.findById(req.user.id) 
+    const User = await user.findById(req.user.id);
     return res.render('profile', {
         user: User, 
     });
 })
 
-router.get('/home',(req, res)=>{
-    console.log(req.user)
+router.get('/home',async(req, res)=>{
+    const complain = await complainModel.find({});
     return res.render('index',{
-        user: req.user
+        user: req.user, complain: complain,
     })
 })
 router.get('/signup',(req, res)=>{
@@ -57,22 +67,41 @@ router.get('/capture',(req, res)=>{
 })
 
 router.post('/upload', upload.single('image'), async (req, res) => {
-    const { complain,location } = req.body;
+    const { complain, location } = req.body;
     const locationArray = JSON.parse(location);
+    
     try {
-        await complainModel.create({
-            imageURL: `/uploads/${req.file.filename}`,
-            complain: complain[1],
-            createdBy: req.user._id,
-            location: locationArray,
-            date: Date.now(),
-        });
-        res.json({ message: 'File uploaded successfully', file: req.file });
+      if (!req.file) {
+        return res.status(400).json({ message: 'File upload failed' });
+      }
+  
+      await complainModel.create({
+        imageURL: `/images/uploads/${req.file.filename}`,  
+        complain: complain[1],
+        createdBy: req.user._id,
+        location: locationArray,
+        date: Date.now(),
+      });
+  
+      const newReports = {
+        imageURL: `/images/uploads/${req.file.filename}`,
+        complain: complain[1],
+        date: Date.now(),
+      };
+  
+      await user.findByIdAndUpdate(
+        req.user._id,
+        { $push: { reports: newReports } },
+        { new: true, runValidators: true }
+      );
+  
+      res.json({ message: 'File uploaded successfully', file: req.file });
     } catch (error) {
-        console.log('Complain creation error:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-});
+      console.log('Complain creation error:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } 
+  });
+  
 router.get('/drives', async(req, res) => {
     
     const userDrives = await drives.find({});    
@@ -92,21 +121,20 @@ router.get('/logout',(req , res)=>{
 });
 
 router.get('/analytics', (req, res) => {
-    // Example data, replace with actual database queries
     const totalDrives = 10;
     const totalVolunteers = 150;
     const totalLocations = 8;
-    const totalLitter = 300; // kg
+    const totalLitter = 300; 
 
     const drivesData = [
-        { location: 'Central Park', litterCollected: 50 },
-        { location: 'Beachside', litterCollected: 40 },
-        { location: 'Downtown', litterCollected: 60 },
-        { location: 'Riverside', litterCollected: 30 },
-        { location: 'Uptown', litterCollected: 20 },
-        { location: 'Suburbs', litterCollected: 50 },
+        { location: 'Juhu beach', litterCollected: 50 },
+        { location: 'Antop hill', litterCollected: 40 },
+        { location: 'colaba', litterCollected: 60 },
+        { location: 'fort', litterCollected: 30 },
+        { location: 'BPT colony', litterCollected: 20 },
+        { location: 'New colony', litterCollected: 50 },
         { location: 'Industrial Area', litterCollected: 20 },
-        { location: 'Old Town', litterCollected: 30 }
+        { location: 'City park', litterCollected: 30 }
     ];
 
     res.render('analytics', {

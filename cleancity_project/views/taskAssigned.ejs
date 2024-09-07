@@ -28,16 +28,21 @@
             </nav>
         <% } %>
     </header>
-
-    <% if (locals.user) { %>
-        <% collectors.forEach(collector => { %>
-            Name: <%= collector.firstname %> <br>
-            <form action="/admin/assign" method="get">
-                <input type="hidden" name="collectorId" value="<%= collector._id %>">
-                <button type="submit" style="width: 150px;height: 30px; padding: 2px; border-radius: 50px;margin: 0px;">Assign a Task</button>
-            </form>
-            <hr>
-        <% }) %>
-    <% } %>
+    <div>
+        <table>
+            <thead>
+                <th>Assigned To</th>
+                <th>Status</th>
+                <th>Date</th>
+            </thead>
+            <tr>
+                <% task.forEach(tasks => { %>
+                    <td><%= tasks.assignee %></td>
+                    <td><%= tasks.status %></td>
+                    <td><%= tasks.date %></td>
+                <% }) %>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

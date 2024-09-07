@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
-const path = require('path')
 const port = process.env.PORT || 3000;
 const cookieParser = require('cookie-parser')
 const {checkForAuthentication} = require('./checkAuth.js')
@@ -10,6 +9,11 @@ const userRoute = require('./routes/user.js')
 const adminRoute = require('./routes/admin.js')
 const {restrictTo} = require('./restrictTo.js')
 const user = require('./models/user.js')
+const collectorRoute = require('./routes/collectorRoute.js')
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -58,12 +62,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/',userRoute);
 app.use('/admin',restrictTo(['admin']),adminRoute)
+app.use('/collector',restrictTo(['collector','admin']),collectorRoute)
 
 // Database connection
-mongoose.connect('mongodb://localhost/cleancity')
+mongoose.connect('mongodb://localhost:27017/cleancity')
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
-
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
