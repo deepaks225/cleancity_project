@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanCity Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-image: url('bg-image.jpg');
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+        }
+        h1 {
+            margin: 0;
+            color: #18f276;
+        }
+        nav {
+            background-color: #444;
+            padding: 0.5rem;
+            margin-top: 10px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.2rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .signup-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .signup-box {
+            width: 30%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .signup-box h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .signup-box input[type="text"],
+        .signup-box input[type="email"],
+        .signup-box input[type="date"],
+        .signup-box input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .signup-box input[name="firstname"],
+        .signup-box input[name="lastname"] {
+            width: 48%;
+            margin: 8px 1%;
+        }
+
+        .signup-box button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #2aa4b7;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .signup-box button[type="submit"]:hover {
+            background-color: #228a9c;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>CleanCity</h1>
+        <% if (locals.user) { %>
+            <nav>
+                <a href="/admin">Home</a>
+                <a href="/admin/collector">Collectors</a>
+                <a href="/admin/create">Create</a>
+                <a href="/admin/user">Users</a>
+                <a href="/admin/complain">Complains</a>
+                <a href="/admin/task">Tasks</a>
+                <a href="/admin/logout">Logout</a>
+            </nav>
+            <% } else { %>
+                <nav>
+                    <a href="/">Home</a>
+                    <a href="/signin">Signin</a>
+                    <a href="/signup">Signup</a>
+                </nav>
+                <% } %>
+    </header>
+
+    <div class="signup-container">
+        <div class="signup-box">
+            <h2>Sign Up</h2>
+            <form action="/admin/create" method="post">
+                <input type="text" placeholder="First name" name="firstname" id="firstname" required>
+                <input type="text" placeholder="Last name" name="lastname" id="lastname" required>
+                <input type="email" placeholder="Email" name="email" id="email" required>
+                <input type="date" placeholder="Date of Birth" name="date" id="date" required>
+                <input type="password" placeholder="New password" name="password" id="password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

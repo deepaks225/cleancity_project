@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('bg-image.jpg');
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #18f276;
+            font-size: 50px;
+        }
+
+        .signup-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .signup-box {
+            width: 30%;
+            background-color: rgba(222, 225, 222, 0);
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-box h2 {
+            color: #0c0101;
+            font-size: 24px;
+        }
+
+        .signup-box input[type="text"],
+        .signup-box input[type="email"],
+        .signup-box input[type="date"],
+        .signup-box input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .signup-box input[name="firstname"],
+        .signup-box input[name="lastname"] {
+            width: 48%;
+            margin: 8px 1%;
+        }
+
+        .signup-box button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #2aa4b7;
+            color: white;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>CleanCity</h1>
+    </div>
+
+    <div class="signup-container">
+        <!-- Sign Up Section -->
+        <div class="signup-box">
+            <h2>Sign Up</h2>
+            <form action="/signup" method="post">
+                <input type="text" placeholder="First name" name="firstname" id="firstname" required>
+                <input type="text" placeholder="Last name"  name="lastname" id="lastname" required>
+                <input type="email" placeholder="Email"  name="email" id="email" required>
+                <input type="date" placeholder="Date of Birth"  name="date" id="date" required>
+                <input type="password" placeholder="New password"  name="password" id="password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cleaning Drives</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        #drives-section {
+            margin-top: 30px;
+        }
+
+        #drives-section h2 {
+            color: #2aa4b7;
+            margin-bottom: 20px;
+        }
+
+        .drive-container {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .drive-container:nth-child(odd) {
+            background-color: #8eefbc;
+        }
+
+        .drive-container:nth-child(even) {
+            background-color: #a7c8db;
+        }
+
+        .drive-container h3 {
+            color: #00796b;
+            margin-top: 0;
+        }
+
+        .drive-details {
+            color: #333;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .drive-details strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cleaning Drives</h1>
+         <% if (locals.user) { %>
+            <nav>
+                <a href="/home">Home</a>
+                <a href="/capture">Report Litter</a>
+                <a href="/profile">Profile</a>
+                <a href="#notifications">Notifications</a>
+                <a href="/analytics">Analytics</a>
+                <a href="/drives">Cleaning Drives</a>
+                <a href="/logout">LogOut</a>
+            </nav>
+        <% } else{ %>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/signin">SignIn</a>
+            <a href="/signup">SignUp</a>
+        </nav>
+        <% } %>
+    </header>
+
+    <main>
+        <!-- Section to Display Cleaning Drives -->
+        <section id="drives-section">
+            <h2>My Cleaning Drives</h2>
+        </section>
+    </main>
+
+    <script>
+        const cleaningDrives = <%- JSON.stringify(drives) %>;
+
+        const drivesSection = document.getElementById('drives-section');
+
+        function renderDrives() {
+            drivesSection.innerHTML = '';
+            cleaningDrives.forEach((drive, index) => {
+                const driveDiv = document.createElement('div');
+                driveDiv.className = 'drive-container';
+                driveDiv.style.backgroundColor = index % 2 === 0 ? '#8eefbc' : '#a7c8db';
+                driveDiv.innerHTML = `
+                    <h3>${drive.location}</h3>
+                    <div class="drive-details">
+                        <strong>Date:</strong> ${drive.date}
+                    </div>
+                    <div class="drive-details">
+                        <strong>Volunteers Required:</strong> ${drive.number}
+                    </div>
+                `;
+                drivesSection.appendChild(driveDiv);
+            });
+        }
+
+        // Initial render of drives
+        renderDrives();
+    </script>
+</body>
+</html>

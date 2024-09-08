@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanCity - Profile</title>
+</head>
+<style>
+    body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+        }
+        h1 {
+            margin: 0;
+            color: #18f276;
+        }
+        nav {
+            background-color: #444;
+            padding: 0.5rem;
+            margin-top: 10px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.2rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+
+    .profile-container {
+        max-width: 900px;
+        margin: 20px auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-picture {
+        flex-shrink: 0;
+        margin-right: 20px;
+    }
+
+    .profile-picture img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .profile-info h1 {
+        margin: 0;
+        font-size: 28px;
+        color: #333;
+    }
+
+    .profile-info p {
+        color: #666;
+        margin: 5px 0;
+    }
+
+    .details-section {
+        margin-bottom: 20px;
+    }
+
+    .details-section h2 {
+        font-size: 22px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .details-section p {
+        color: #555;
+    }
+
+</style>
+
+<body>
+    <header>
+        <h1>CleanCity</h1>
+        <% if (locals.user) { %>
+            <nav>
+                <a href="/collector">Home</a>
+                <a href="/collector/profile">Profile</a>
+                <a href="/collector/task">Tasks</a>
+                <a href="/collector/logout">Logout</a>
+            </nav>
+        <% } else { %>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/signin">Signin</a>
+                <a href="/signup">Signup</a>
+            </nav>
+        <% } %>
+    </header>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-picture">
+                <img src="<%= locals.user.profilePicture || '/images/default.png' %>" alt="Profile Picture">
+            </div>
+            <div class="profile-info">
+                <h1><%= locals.user.firstname %> <%= locals.user.lastname %></h1>
+            </div>
+        </div>
+        
+
+        <div class="details-section">
+            <h2>Details</h2>
+            <p>Email: <%= locals.user.email %></p>
+            <p>Date of Birth: <%= locals.user.date %></p>
+        </div> 
+    </div>
+</body>
+
+</html>
