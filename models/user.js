@@ -14,6 +14,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  profilePicture: {
+    type:String,
+    default:"/images/default.png"
+  },
   salt: {
     type: String,
   },
@@ -33,6 +37,7 @@ const UserSchema = new mongoose.Schema({
   reports: [{
     imageURL: { type: String },
     complain: { type: String },
+    address: { type: String },
     date: { type: Date },
   }]
 });

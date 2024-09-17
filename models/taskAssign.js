@@ -10,7 +10,22 @@ const assignSchema = new Schema({
         type:String,
         required : true,
         default: false,
-    }
+    },
+    location: [{
+        latitude: {
+            type: String,
+            required: true
+        },
+        longitude: {
+            type: String,
+            required: true
+        }
+    }],
+    address: {
+        type:String,
+        required: true
+
+    },
 }, {timestamps: true})
 
 const assignModel = model('Task', assignSchema)

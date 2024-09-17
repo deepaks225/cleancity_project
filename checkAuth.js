@@ -14,4 +14,4 @@ function checkForAuthentication(cookieName){
     }
 }
 
-module.exports = {checkForAuthentication}
+module.exports = {checkForAuthentication} 

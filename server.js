@@ -45,11 +45,9 @@ app.post("/signin", async (req, res) => {
             const token = await collectorModel.matchPassword(email, password);
             if (token) {
                 res.cookie("token", token);
-                return res.redirect("/collector");
+                return res.redirect("/collector/task");
             }
         }
-
-
         console.log("Invalid credentials for:", email);
         return res.render("users/signin", { error: "Invalid credentials" });
     } catch (error) {

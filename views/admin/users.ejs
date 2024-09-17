@@ -4,66 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CleanCity - Users</title>
-  <style>
-      body {
-          font-family: Arial, sans-serif;
-          line-height: 1.6;
-          margin: 0;
-          padding: 0;
-          background-image: url('bg-image.jpg');
-          background-attachment: fixed;
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: cover;
-      }
-      header {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 1rem;
-        }
-        h1 {
-            margin: 0;
-            color: #18f276;
-        }
-        nav {
-            background-color: #444;
-            padding: 0.5rem;
-            margin-top: 10px;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            margin: 0 0.2rem;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        nav a:hover {
-            background-color: #555;
-        }
-      .user-container {
-          width: 80%;
-          margin: auto;
-          padding: 2rem 0;
-      }
-      .user-card {
-          background-color: rgba(255, 255, 255, 0.9);
-          padding: 1rem;
-          border-radius: 5px;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-          margin-bottom: 1rem;
-      }
-      .user-card p {
-          margin: 0.5rem 0;
-          font-size: 1rem;
-      }
-      hr {
-          border: 0;
-          height: 1px;
-          background-color: #ddd;
-      }
-  </style>
+  <link rel="stylesheet" href="/navbar.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <header>
@@ -76,6 +18,7 @@
             <a href="/admin/user">Users</a>
             <a href="/admin/complain">Complains</a>
             <a href="/admin/task">Tasks</a>
+            <a href="/admin/drives">Drives</a>
             <a href="/admin/logout">Logout</a>
         </nav>
     <% } else { %>

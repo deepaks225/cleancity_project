@@ -10,6 +10,11 @@ const complainSchema = new Schema({
         type:String,
         required: true
     },
+    address: {
+        type:String,
+        required: true
+
+    },
     createdBy:{
         type: String,
         required: true,

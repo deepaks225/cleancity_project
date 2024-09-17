@@ -1,102 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleanCity</title>
-    <style>
-        /* Your existing styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        
-        nav {
-            margin-top: 10px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-            font-size: 1rem;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        h1 {
-            margin: 0;
-            font-size: 2rem;
-        }
-
-        div.inline {
-            display: inline-block;
-            vertical-align: top;
-            margin: 20px;
-        }
-        #video, #canvas {
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            width: 300px;
-            height: 240px;
-        }
-        #capture {
-            display: block;
-            margin: 10px auto;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #capture:hover {
-            background-color: #45a049;
-        }
-        form {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-        }
-        input[type="text"] {
-            width: calc(100% - 40px);
-            max-width: 300px;
-            height: 100px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            padding: 10px;
-        }
-        button[type="submit"] {
-            display: block;
-            width: 100%;
-            max-width: 80px;
-            padding: 10px;
-            background-color: #45a049;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button[type="submit"]:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/user.css">
 </head>
+
 <body>
     <header>
         <h1>Report Litter</h1>
@@ -105,38 +17,42 @@
                 <a href="/home">Home</a>
                 <a href="/capture">Report Litter</a>
                 <a href="/profile">Profile</a>
-                <a href="#notifications">Notifications</a>
-                <a href="/analytics">Analytics</a>
+                <a href="/notifications">Notifications</a>
                 <a href="/drives">Cleaning Drives</a>
                 <a href="/logout">LogOut</a>
             </nav>
-        <% } else { %>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/signin">SignIn</a>
-                <a href="/signup">SignUp</a>
-            </nav>
-        <% } %>
+            <% } else { %>
+                <nav>
+                    <a href="/">Home</a>
+                    <a href="/signin">SignIn</a>
+                    <a href="/signup">SignUp</a>
+                </nav>
+                <% } %>
     </header>
 
     <div class="inline">
         <video id="video" autoplay></video>
         <button id="capture">Capture</button>
     </div>
-    
+
     <div class="inline">
         <canvas id="canvas"></canvas>
     </div>
-    
+
     <form action="/upload" method="post" id="uploadForm" enctype="multipart/form-data">
         <input type="file" name="image" id="imageInput" style="display: none;">
         <div>
             <h2>Write your complaint</h2>
             <input type="text" name="complain" id="complain" placeholder="Describe the litter here...">
         </div>
+        <div>
+            <h3>address of litter with landmark</h3>
+            <input type="text" name="address" id="address"
+                placeholder="write the proper address of litter with landmark... ">
+        </div>
         <button type="submit">Upload</button>
     </form>
-    
+
     <script>
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
@@ -144,6 +60,8 @@
         const uploadForm = document.getElementById('uploadForm');
         const imageInput = document.getElementById('imageInput');
         const complainInput = document.getElementById('complain');
+        const address = document.getElementById('address');
+
 
         // Detect if the device is a mobile device
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -185,7 +103,7 @@
                 navigator.geolocation.getCurrentPosition(async (position) => {
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
-                    
+
                     // Append location as JSON string
                     formData.append('location', JSON.stringify([{ latitude, longitude }]));
 
@@ -212,4 +130,5 @@
         });
     </script>
 </body>
+
 </html>

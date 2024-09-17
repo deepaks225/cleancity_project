@@ -3,71 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
-<style>
-    body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
+    <title>Assigned Tasks-collector</title>
+    <link rel="stylesheet" href="/navbar.css">
+    <style>
+        /* Task container and styling */
+        .task-container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
-        header {
-            background-color: #333;
-            color: #fff;
+        
+        .task-container h2 {
             text-align: center;
-            padding: 1rem;
+            font-size: 2rem;
+            color: #444;
+            margin-bottom: 2rem;
         }
-        h1 {
-            margin: 0;
-            color: #18f276;
+        
+        .task-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
         }
-        nav {
-            background-color: #444;
-            padding: 0.5rem;
+        
+        .task-item:hover {
+            transform: translateY(-10px);
         }
-        nav a {
+
+        .task-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .task-details p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .task-image {
+            text-align: center;
+        }
+        
+        .task-image img {
+            max-width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-item a {
+            text-align: center;
+            display: inline-block;
+            background-color: #1abc9c;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-top: 1rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .task-item a:hover {
+            background-color: #16a085;
+        }
+
+        /* Google Maps Button */
+        .google-maps-button {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        .google-maps-button button {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .google-maps-button button:hover {
+            background-color: #c0392b;
+        }
+        
+        .google-maps-button a {
             color: #fff;
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            margin: 0 0.2rem;
-            border-radius: 5px;
-            transition: background-color 0.3s;
         }
-        nav a:hover {
-            background-color: #555;
+        
+        /* Divider */
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #ddd;
+            margin: 2rem 0;
         }
-</style>
+
+        /* No tasks message */
+        .no-tasks {
+            text-align: center;
+            color: #888;
+            font-size: 1.3rem;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
 <body>
     <header>
         <h1>CleanCity</h1>
         <% if (locals.user) { %>
-            <nav>
-                <a href="/collector">Home</a>
-                <a href="/collector/profile">Profile</a>
-                <a href="/collector/task">Tasks</a>
-                <a href="/collector/logout">Logout</a>
-            </nav>
+        <nav>
+            <a href="/collector/profile">Profile</a>
+            <a href="/collector/task">Tasks</a>
+            <a href="/collector/logout">Logout</a>
+        </nav>
         <% } else { %>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/signin">Signin</a>
-                <a href="/signup">Signup</a>
-            </nav>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/signin">Signin</a>
+            <a href="/signup">Signup</a>
+        </nav>
         <% } %>
     </header>
-    <% if (locals.user) { %>
-        <% user.forEach(users => { %>
-            Task:<%= users.task %>
-            <br>
-            Date:<%= users.date %>
-            <br>
-            Image: <img src="<%= users.imageURL %> " alt="images">
-            <hr>
-        <% }) %>
-        
-    <% } %>
+
+    <div class="task-container">
+        <% if (locals.tasks && locals.tasks.length > 0) { %>
+            <% for (var i = 0; i < locals.tasks.length; i++) { %>
+                <% const task = locals.tasks[i]; %>
+                Task: <%= task.task %>
+                <br />
+                Date: <%= task.date %>
+                <br />
+                Status: <%= task.status %>
+                <br />
+                Image: <img src="<%= task.imageURL %>" alt="Task Image" />
+                <br />
+                Latitude: <%= task.location[0].latitude %>, Longitude: <%= task.location[0].longitude %>
+                <br />
+                <Address>Address: <%= task.address %></Address>
+                <br>
+                <button>
+                    <a href="https://www.google.com/maps?q=<%= task.location[0].latitude %>,<%= task.location[0].longitude %>" target="_blank">Open in Google Maps</a>
+                </button>
+                <br />
+                <a href="/collector/update/<%= task._id %>">Update Status</a>
+                <hr />
+            <% } %>
+        <% } else { %>
+            <p>No tasks assigned.</p>
+        <% } %>
+    </div>
 </body>
 </html>
