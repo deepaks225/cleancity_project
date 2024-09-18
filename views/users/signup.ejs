@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #198754; /* Green background similar to sign-in page */
+            background-color: #198754;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,6 +38,14 @@
             color: white;
         }
 
+        div {
+            font-size: 16px;
+            text-align: left;
+            color: white;
+            padding-top: 12px;
+            
+        }
+
         .signup-box input[type="text"],
         .signup-box input[type="email"],
         .signup-box input[type="date"],
@@ -61,7 +69,7 @@
         .signup-box button {
             width: 100%;
             padding: 12px;
-            background-color: #4f2aad; /* Purple log in button */
+            background-color: #4f2aad; 
             color: white;
             font-size: 18px;
             border: none;
@@ -88,6 +96,36 @@
             padding: 10px;
         }
 
+        .signup-box p {
+            font-size: 16px;
+            color: white; 
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .signup-box input[type="file"] {
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #000;
+            border: none;
+        }
+
+        .signup-box input[type="file"]::-webkit-file-upload-button {
+            background-color: #4f2aad;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .signup-box input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: #3c217f;
+        }
+
     </style>
 </head>
 <body>
@@ -96,14 +134,15 @@
         <div class="signup-box">
             <h2>Sign Up</h2>
             <form action="/signup" method="post" enctype="multipart/form-data">
-                <p style="color: #fff">Select Profile Picture</p>
+                <p>Select Profile Picture</p>
                 <input type="file" id="profilePicture" name="profilePicture" accept="image/png, image/jpeg" />
                 <br>
                 <input type="text" placeholder="First name" name="firstname" id="firstname" required>
-                <input type="text" placeholder="Last name"  name="lastname" id="lastname" required>
-                <input type="email" placeholder="Email"  name="email" id="email" required>
-                <input type="date" placeholder="Date of Birth"  name="date" id="date" required>
-                <input type="password" placeholder="New password"  name="password" id="password" required>
+                <input type="text" placeholder="Last name" name="lastname" id="lastname" required>
+                <input type="email" placeholder="Email" name="email" id="email" required>
+                <div>Date of Birth:</div>
+                <input type="date" placeholder="Date of Birth" name="date" id="date" required>
+                <input type="password" placeholder="New password" name="password" id="password" required>
                 <button type="submit">Sign Up</button>
             </form>
         </div>

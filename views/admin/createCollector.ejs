@@ -6,14 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleanCity Sign Up</title>
     <link rel="stylesheet" href="/navbar.css">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/admin.css">
+    <link rel="stylesheet" href="/hamburger.css">
 </head>
 
 <body>
     <header>
         <h1>CleanCity</h1>
+
+        <div class="hamburger" >
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
         <% if (locals.user) { %>
-            <nav>
+            <nav id="main-nav">
                 <a href="/admin">Home</a>
                 <a href="/admin/collector">Collectors</a>
                 <a href="/admin/create">Create</a>
@@ -23,13 +31,13 @@
                 <a href="/admin/drives">Drives</a>
                 <a href="/admin/logout">Logout</a>
             </nav>
-            <% } else { %>
-                <nav>
-                    <a href="/">Home</a>
-                    <a href="/signin">Signin</a>
-                    <a href="/signup">Signup</a>
-                </nav>
-                <% } %>
+        <% } else { %>
+            <nav id="main-nav">
+                <a href="/">Home</a>
+                <a href="/signin">Signin</a>
+                <a href="/signup">Signup</a>
+            </nav>
+        <% } %>
     </header>
 
     <div class="signup-container">
@@ -39,12 +47,22 @@
                 <input type="text" placeholder="First name" name="firstname" id="firstname" required>
                 <input type="text" placeholder="Last name" name="lastname" id="lastname" required>
                 <input type="email" placeholder="Email" name="email" id="email" required>
+                <div style="text-align: left; font-size: 16px; color: white; padding-top: 12px;">Date of Birth:</div>
                 <input type="date" placeholder="Date of Birth" name="date" id="date" required>
                 <input type="password" placeholder="New password" name="password" id="password" required>
                 <button type="submit">Sign Up</button>
             </form>
         </div>
     </div>
-</body>
 
+    <script>
+       const hamburger = document.querySelector('.hamburger');
+        const nav = document.getElementById('main-nav');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+    </script>
+</body>
 </html>

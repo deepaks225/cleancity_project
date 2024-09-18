@@ -5,74 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/collector.css">
+    <link rel="stylesheet" href="/hamburger.css">
 </head>
-<style>
-    .profile-container {
-        max-width: 900px;
-        margin: 20px auto;
-        background-color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .profile-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .profile-picture {
-        flex-shrink: 0;
-        margin-right: 20px;
-    }
-
-    .profile-picture img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-    .profile-info h1 {
-        margin: 0;
-        font-size: 28px;
-        color: #333;
-    }
-
-    .profile-info p {
-        color: #666;
-        margin: 5px 0;
-    }
-
-    .details-section {
-        margin-bottom: 20px;
-    }
-
-    .details-section h2 {
-        font-size: 22px;
-        color: #333;
-        margin-bottom: 10px;
-    }
-
-    .details-section p {
-        color: #555;
-    }
-
-</style>
 
 <body>
     <header>
         <h1>CleanCity</h1>
+
+        <div class="hamburger" >
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
         <% if (locals.user) { %>
-            <nav>
+            <nav id="main-nav">
                 <a href="/collector/profile">Profile</a>
                 <a href="/collector/task">Tasks</a>
                 <a href="/collector/logout">Logout</a>
             </nav>
         <% } else { %>
-            <nav>
+            <nav id="main-nav">
                 <a href="/">Home</a>
                 <a href="/signin">Signin</a>
                 <a href="/signup">Signup</a>
@@ -89,14 +44,23 @@
                 <h1><%= locals.user.firstname %> <%= locals.user.lastname %></h1>
             </div>
         </div>
-        
 
         <div class="details-section">
             <h2>Details</h2>
             <p>Email: <%= locals.user.email %></p>
             <p>Date of Birth: <%= locals.user.date %></p>
-        </div> 
+        </div>
     </div>
+
+    <script>
+       const hamburger = document.querySelector('.hamburger');
+        const nav = document.getElementById('main-nav');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+    </script>
 </body>
 
 </html>

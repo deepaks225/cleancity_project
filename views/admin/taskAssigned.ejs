@@ -6,13 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleanCity Tasks</title>
     <link rel="stylesheet" href="/navbar.css">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/admin.css">
+    <link rel="stylesheet" href="/hamburger.css">
 </head>
+
 <body>
     <header>
         <h1>CleanCity</h1>
+        <div class="hamburger" >
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
         <% if (locals.user) { %>
-            <nav>
+            <nav id="main-nav">
                 <a href="/admin">Home</a>
                 <a href="/admin/collector">Collectors</a>
                 <a href="/admin/create">Create</a>
@@ -22,14 +30,15 @@
                 <a href="/admin/drives">Drives</a>
                 <a href="/admin/logout">Logout</a>
             </nav>
-            <% } else { %>
-                <nav>
-                    <a href="/">Home</a>
-                    <a href="/signin">Signin</a>
-                    <a href="/signup">Signup</a>
-                </nav>
-                <% } %>
+        <% } else { %>
+            <nav id="main-nav">
+                <a href="/">Home</a>
+                <a href="/signin">Signin</a>
+                <a href="/signup">Signup</a>
+            </nav>
+        <% } %>
     </header>
+
     <div class="container">
         <table>
             <thead>
@@ -40,22 +49,26 @@
                 </tr>
             </thead>
             <tbody>
-                <% task.forEach(tasks=> { %>
+                <% task.forEach(tasks => { %>
                     <tr>
-                        <td>
-                            <%= tasks.assignee %>
-                        </td>
-                        <td>
-                            <%= tasks.status %>
-                        </td>
-                        <td>
-                            <%= tasks.date %>
-                        </td>
+                        <td><%= tasks.assignee %></td>
+                        <td><%= tasks.status %></td>
+                        <td><%= tasks.date %></td>
                     </tr>
-                    <% }) %>
+                <% }) %>
             </tbody>
         </table>
     </div>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.getElementById('main-nav');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+    </script>
 </body>
 
 </html>

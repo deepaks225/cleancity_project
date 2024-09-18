@@ -7,13 +7,19 @@
     <title>CleanCity</title>
     <link rel="stylesheet" href="/navbar.css">
     <link rel="stylesheet" href="/user.css">
+    <link rel="stylesheet" href="/hamburger.css">
 </head>
 
 <body>
     <header>
         <h1>CleanCity</h1>
+        <div class="hamburger" >
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <% if (locals.user) { %>
-            <nav>
+            <nav id="main-nav">
                 <a href="/home">Home</a>
                 <a href="/capture">Report Litter</a>
                 <a href="/profile">Profile</a>
@@ -21,42 +27,58 @@
                 <a href="/drives">Cleaning Drives</a>
                 <a href="/logout">LogOut</a>
             </nav>
-        <% } else { %>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/signin">SignIn</a>
-                <a href="/signup">SignUp</a>
-            </nav>
-        <% } %>
+            <% } else { %>
+                <nav id="main-nav">
+                    <a href="/">Home</a>
+                    <a href="/signin">SignIn</a>
+                    <a href="/signup">SignUp</a>
+                </nav>
+                <% } %>
     </header>
+
     <main>
         <% if (!locals.user) { %>
             <section id="home">
                 <h2>Welcome to CleanCity</h2>
                 <p>Help keep your city clean by reporting litter and participating in community cleaning drives.</p>
             </section>
-        <% } else { %>
-            <section id="complaints">
-                <div class="card-container">
-                    <% reversedData.slice(0, 9).forEach((item)=> { %>
-                        <div class="card">
-                            <div class="card-header">
-                                <img src="<%= item.userInfo.profilePicture || '/images/default.png' %>" alt="Profile Picture">
-                                <span class="user-name">
-                                    <%= item.userInfo.firstname %> <%= item.userInfo.lastname %>
-                                </span>
+            <% } else { %>
+                <section id="complaints">
+                    <div class="card-container">
+                        <% reversedData.slice(0, 9).forEach((item)=> { %>
+                            <div class="card">
+                                <div class="card-header">
+                                    <img src="<%= item.userInfo.profilePicture || '/images/default.png' %>"
+                                        alt="Profile Picture">
+                                    <span class="user-name">
+                                        <%= item.userInfo.firstname %>
+                                            <%= item.userInfo.lastname %>
+                                    </span>
+                                </div>
+                                <div class="card-image">
+                                    <img src="<%= item.complaint.imageURL %>" alt="Reported litter">
+                                </div>
+                                <div class="card-content">
+                                    <p>
+                                        <%= item.complaint.complain %>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="card-image">
-                                <img src="<%= item.complaint.imageURL %>" alt="Reported litter">
-                            </div>
-                            <div class="card-content">
-                                <p><%= item.complaint.complain %></p>
-                            </div>
-                        </div>
-                    <% }) %>
-                </div>
-            </section>
-        <% } %>
-    </main>   
+                            <% }) %>
+                    </div>
+                </section>
+                <% } %>
+    </main>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.getElementById('main-nav');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+    </script>
 </body>
+
 </html>

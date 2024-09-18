@@ -1,0 +1,211 @@
+/* styling for collectorAssigned ejs*/
+.task-container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  background-color: #fdfdfd;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.task-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+.task-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+.task-details p {
+  margin: 0.75rem 0;
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.5;
+}
+.task-details .coordinates {
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  color: #999;
+}
+.task-details .coordinates span {
+  font-weight: bold;
+  color: #333;
+}
+.task-image {
+  flex-shrink: 0;
+}
+.task-image img {
+  max-width: 350px;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.task-image img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.task-buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.task-buttons a, .task-buttons button {
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.task-buttons a {
+  background-color: #1abc9c;
+}
+.task-buttons a:hover {
+  background-color: #16a085;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+.google-maps-button a {
+  background-color: #e74c3c;
+}
+.google-maps-button a:hover {
+  background-color: #c0392b;
+}
+.google-maps-button a, .google-maps-button button {
+  display: inline-block;
+}
+.task-buttons .google-maps-button {
+  margin-right: 10px;
+}
+hr {
+  border: none;
+  height: 1px;
+  background-color: #ddd;
+  margin: 3rem 0;
+}
+.no-tasks {
+  text-align: center;
+  color: #888;
+  font-size: 1.5rem;
+  margin-top: 4rem;
+}
+/* styling for collectorStatus ejs*/
+.update-status-title {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 2rem;
+  color: #444;
+}
+.update-status-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+.update-status-form label {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+.update-status-form select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  transition: border 0.3s ease;
+}
+.update-status-form select:focus {
+  border-color: #1abc9c;
+}
+.update-status-form button {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background-color: #1abc9c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.update-status-form button:hover {
+  background-color: #16a085;
+}
+@media (max-width: 600px) {
+  .update-status-form {
+      padding: 1.5rem;
+ }
+  .update-status-form button {
+      padding: 0.75rem;
+      font-size: 1rem;
+ }
+}
+/* styling for collectorProfile ejs*/
+.profile-container {
+  max-width: 900px;
+  margin: 20px auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.profile-picture {
+  flex-shrink: 0;
+  margin-right: 20px;
+}
+.profile-picture img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.profile-info h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #333;
+}
+.profile-info p {
+  color: #666;
+  margin: 5px 0;
+}
+.details-section {
+  margin-bottom: 20px;
+}
+.details-section h2 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 10px;
+}
+.details-section p {
+  color: #555;
+}

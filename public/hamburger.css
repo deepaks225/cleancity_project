@@ -1,0 +1,102 @@
+/* Sliding Hamburger Button */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    transition: transform 0.3s ease-in-out;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: transform 0.3s ease-in-out, width 0.3s ease, background-color 0.3s ease;
+}
+
+.hamburger span:nth-child(1) {
+    transform-origin: left;
+    transition-delay: 0.1s;
+}
+
+.hamburger span:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.hamburger span:nth-child(3) {
+    transform-origin: right;
+    transition-delay: 0.3s;
+}
+
+/* Sliding effect when the hamburger is active */
+.hamburger.active span:nth-child(1) {
+    transform: translateX(15px) rotate(45deg);
+    background-color: #1abc9c;
+}
+
+.hamburger.active span:nth-child(2) {
+    width: 0;
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateX(-15px) rotate(-45deg);
+    background-color: #1abc9c;
+}
+
+/* Hover effect */
+.hamburger:hover span {
+    background-color: #1abc9c;
+}
+
+/* Media query to display hamburger on mobile */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    nav {
+        display: none;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        position: fixed;
+        top: 60px;
+        right: 0;
+        background-color: rgba(44, 62, 80, 0.95);
+        width: 100%;
+        height: calc(100vh - 60px);
+        padding: 2rem 0;
+        z-index: 9;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s ease;
+    }
+
+    nav.active {
+        display: flex;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    nav a {
+        display: block;
+        padding: 1rem;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+        transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+        color: #1abc9c;
+    }
+}

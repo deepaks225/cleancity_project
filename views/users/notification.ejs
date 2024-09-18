@@ -7,13 +7,22 @@
   <title>Notifications</title>
   <link rel="stylesheet" href="/navbar.css">
   <link rel="stylesheet" href="/user.css">
+  <link rel="stylesheet" href="/hamburger.css">
 </head>
 
 <body>
   <header>
     <h1>Notifications</h1>
+
+    <!-- Hamburger menu -->
+    <div class="hamburger" >
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
     <% if (locals.user) { %>
-      <nav>
+      <nav id="main-nav">
         <a href="/home">Home</a>
         <a href="/capture">Report Litter</a>
         <a href="/profile">Profile</a>
@@ -21,37 +30,42 @@
         <a href="/drives">Cleaning Drives</a>
         <a href="/logout">LogOut</a>
       </nav>
-      <% } else { %>
-        <nav>
-          <a href="/">Home</a>
-          <a href="/signin">SignIn</a>
-          <a href="/signup">SignUp</a>
-        </nav>
-        <% } %>
+    <% } else { %>
+      <nav id="main-nav">
+        <a href="/">Home</a>
+        <a href="/signin">SignIn</a>
+        <a href="/signup">SignUp</a>
+      </nav>
+    <% } %>
   </header>
 
   <div class="notifications-container">
     <h2>Your Complaints Status</h2>
-    <% if (complaints && complaints.length> 0) { %>
-      <% complaints.forEach(complaint=> { %>
+    <% if (complaints && complaints.length > 0) { %>
+      <% complaints.forEach(complaint => { %>
         <div class="notification-item" data-id="<%= complaint._id %>">
           <% if (!complaint.isRead) { %>
             <span class="unread-dot"></span>
-            <% } %>
-              <h3>Complaint ID: <%= complaint._id %>
-              </h3>
-              <p class="status">Status: <%= complaint.status %>
-              </p>
-              <p>Created At: <%= complaint.createdAt.toLocaleDateString() %>
-              </p>
+          <% } %>
+          <h3>Complaint ID: <%= complaint._id %></h3>
+          <p class="status">Status: <%= complaint.status %></p>
+          <p>Created At: <%= complaint.createdAt.toLocaleDateString() %></p>
         </div>
-        <% }) %>
-          <% } else { %>
-            <p class="no-complaints">You have no complaints at the moment.</p>
-            <% } %>
+      <% }) %>
+    <% } else { %>
+      <p class="no-complaints">You have no complaints at the moment.</p>
+    <% } %>
   </div>
 
   <script>
+    const hamburger = document.querySelector('.hamburger');
+        const nav = document.getElementById('main-nav');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
     document.addEventListener('DOMContentLoaded', function () {
       const notificationItems = document.querySelectorAll('.notification-item');
 

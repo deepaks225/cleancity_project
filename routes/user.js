@@ -29,7 +29,6 @@ router.get('/', (req, res) => {
 })
 router.get('/profile', async (req, res) => {
     const User = await user.findById(req.user.id);
-    console.log(User.profilePicture)
     return res.render('users/profile', {
         user: User,
     });
@@ -75,7 +74,6 @@ router.post('/signup', upload.single('profilePicture'), async (req, res) => {
     const password = req.body.password;
     const email = req.body.email;
     const date = req.body.date;
-    console.log(req.body);
 
     try {
         const User = await user.create({ profilePicture: `/images/uploads/${req.file.filename}`, firstname: firstname, lastname: lastname, email: email, date: date, password: password });
@@ -108,7 +106,6 @@ router.post('/upload', upload.single('image'), async (req, res) => {
             location: locationArray,
             date: Date.now(),
         });
-        console.log(req.user.id)
         const newReports = {
             imageURL: `/images/uploads/${req.file.filename}`,
             complain: complain[1],

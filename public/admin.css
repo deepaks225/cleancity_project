@@ -1,0 +1,361 @@
+/* styling for admin ejs*/
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+  padding: 2rem 0;
+}
+.collector-card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.collector-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.assign-btn {
+  display: inline-block;
+  width: 150px;
+  height: 30px;
+  padding: 2px;
+  border-radius: 50px;
+  margin: 0;
+  text-align: center;
+  line-height: 30px;
+  text-decoration: none;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s;
+}
+.assign-btn:hover {
+  background-color: #0056b3;
+}
+/* styling for assign ejs*/
+tr, th, td {
+  border: 1px solid black;
+}
+/* styling for collectorlist ejs*/
+.user-card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+.user-info {
+  margin-bottom: 0.5rem;
+}
+.user-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.user-email, .user-role {
+  color: #666;
+}
+/* styling for complain ejs*/
+.complain-card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+.complain-text {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+.complain-date {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.complain-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+/* styling for createcollector ejs*/
+.signup-container {
+  margin-top: 120px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.signup-box {
+  width: 400px;
+  background-color: #198754;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.signup-box img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+.signup-box h2 {
+  font-size: 22px;
+  margin-top: 10px;
+  color: white;
+}
+.signup-box input[type="text"], .signup-box input[type="email"], .signup-box input[type="date"], .signup-box input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background: transparent;
+  color: white;
+  outline: none;
+}
+.signup-box input::placeholder {
+  color: white;
+}
+.signup-box button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #4f2aad;
+ /* Purple log in button */
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+.signup-box button[type="submit"]:hover {
+  background-color: #3c217f;
+}
+footer {
+  text-align: center;
+  margin-top: 20px;
+}
+@media (max-width: 600px) {
+  .signup-box {
+      width: 90%;
+      padding: 20px;
+ }
+}
+/* styling for admin drives ejs*/
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+.form-container {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 35px;
+  border-radius: 15px;
+  backdrop-filter: blur(8px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.form-container:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transform: translateY(-5px);
+}
+.form-container label {
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  display: block;
+}
+.form-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #2c3e50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+.form-container input:focus {
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.form-container button {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 180px;
+}
+.form-container button:hover {
+  background: linear-gradient(135deg, #3b9fd3, #1d78b0);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+.drives-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+.drive-item {
+  background: rgba(255, 255, 255, 0.35);
+  padding: 25px;
+  border-radius: 12px;
+  backdrop-filter: blur(6px) saturate(180%);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: all 0.3s ease;
+}
+.drive-item:hover {
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  transform: translateY(-5px);
+}
+.drive-item h3 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+.drive-item p {
+  font-size: 1rem;
+  color: #34495e;
+  margin-bottom: 12px;
+}
+.drive-item button {
+  background-color: #1abc9c;
+  color: white;
+  padding: 10px 18px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(26, 188, 156, 0.3);
+}
+.drive-item button:hover {
+  background-color: #16a085;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(26, 188, 156, 0.4);
+}
+.drive-item .delete-btn {
+  background-color: #e74c3c;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+}
+.drive-item .delete-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-4px);
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding-top: 60px;
+}
+.modal-content {
+  background-color: rgba(255, 255, 255, 0.9);
+  margin: auto;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 600px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.4s ease-out;
+}
+.modal-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+.modal-content p {
+  font-size: 1.1rem;
+  color: #555;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 26px;
+  cursor: pointer;
+}
+.close:hover {
+  color: #000;
+}
+@media (max-width: 768px) {
+  .drives-list {
+      grid-template-columns: 1fr;
+ }
+  .form-container {
+      padding: 20px;
+ }
+}
+/* styling for taskassigned ejs*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+th {
+  background-color: #333;
+  color: #fff;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+tr:hover {
+  background-color: #ddd;
+}
+/* styling for userslist ejs*/
+.user-card {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+.user-card p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+hr {
+  border: 0;
+  height: 1px;
+  background-color: #ddd;
+}
