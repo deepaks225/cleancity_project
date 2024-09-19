@@ -39,6 +39,12 @@ const UserSchema = new mongoose.Schema({
     complain: { type: String },
     address: { type: String },
     date: { type: Date },
+    category: {
+      type: String,
+    },
+    weight: {
+      type: String,
+    }
   }]
 });
 

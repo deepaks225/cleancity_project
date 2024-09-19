@@ -30,9 +30,16 @@ const collectorSchema = new Schema({
         type: String,
         default: 'collector',
     },
+    taskCompleted: {
+      type: Number,
+      default: 0,
+    },
+    Area: {
+      type: String,
+      required: true, 
+    }
     
 })
-
 
 
 collectorSchema.pre("save", function(next) {

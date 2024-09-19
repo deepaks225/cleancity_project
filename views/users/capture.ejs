@@ -8,14 +8,92 @@
     <link rel="stylesheet" href="/navbar.css">
     <link rel="stylesheet" href="/user.css">
     <link rel="stylesheet" href="/hamburger.css">
+    <link rel="stylesheet" href="/report.css">
+    <style>
+        /* General styling for the form */
+.report-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+}
+
+/* Flexbox layout for dropdowns with aligned elements */
+.report-form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.report-form-row .report-input-container {
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 10px); /* Adjust width for the dropdown boxes */
+}
+
+.report-input-container h3 {
+    margin-bottom: 5px;
+    font-size: 1rem;
+}
+
+.report-select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px; /* Reduced size for dropdown */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Input fields */
+.report-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.report-input:focus, .report-select:focus {
+    border-color: #4CAF50;
+}
+
+/* Submit Button */
+.report-submit-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.report-submit-btn:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .report-form-row {
+        flex-direction: column;
+    }
+
+    .report-form-row .report-input-container {
+        width: 100%;
+    }
+}
+
+    </style>
 </head>
 
 <body>
     <header>
         <h1>Report Litter</h1>
 
-        <!-- Hamburger menu -->
-        <div class="hamburger" >
+        <div class="hamburger">
             <span></span>
             <span></span>
             <span></span>
@@ -48,17 +126,43 @@
         <canvas id="canvas"></canvas>
     </div>
 
-    <form action="/upload" method="post" id="uploadForm" enctype="multipart/form-data">
+    <form action="/upload" method="post" id="uploadForm" enctype="multipart/form-data" class="report-form">
         <input type="file" name="image" id="imageInput" style="display: none;">
+        
         <div>
             <h2>Write your complaint</h2>
-            <input type="text" name="complain" id="complain" placeholder="Describe the litter here...">
+            <input type="text" name="complain" id="complain" placeholder="Describe the litter here..." class="report-input">
         </div>
-        <div>
-            <h3>Address of litter with landmark</h3>
-            <input type="text" name="address" id="address" placeholder="Write the proper address of litter with landmark... ">
+
+        <div class="report-form-row">
+            <input type="text" name="address" id="address" placeholder="Write the proper address of litter with landmark..." class="report-input">
         </div>
-        <button type="submit">Upload</button>
+
+        <div class="report-form-row">
+            <div class="report-input-container">
+                <h3>Type of Waste</h3>
+                <select name="category" id="category" class="report-select">
+                    <option value="Electronic">Electronic</option>
+                    <option value="Dry">Dry</option>
+                    <option value="Wet">Wet</option>
+                    <option value="Glass">Glass</option>
+                    <option value="Plastic">Plastic</option>
+                    <option value="RadioActive">RadioActive</option>
+                </select>
+            </div>
+
+            <div class="report-input-container">
+                <h3>Weight of Waste</h3>
+                <select name="weight" id="weight" class="report-select">
+                    <option value="Under 1kg">Under 1kg</option>
+                    <option value="1-5kg">1-5kg</option>
+                    <option value="5-10kg">5-10kg</option>
+                    <option value="Above 10kg">Above 10kg</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="report-submit-btn">Upload</button>
     </form>
 
     <script>
@@ -79,15 +183,12 @@
             nav.classList.toggle('active');
         });
 
-        // Detect if the device is a mobile device
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-        // Set constraints for the video stream
         const constraints = {
             video: isMobile ? { facingMode: { ideal: "environment" } } : true
         };
 
-        // Access the user's webcam or back camera
         navigator.mediaDevices.getUserMedia(constraints)
             .then(stream => {
                 video.srcObject = stream;
@@ -96,7 +197,6 @@
                 console.error("Error accessing camera: ", err);
             });
 
-        // Capture the image from the video
         captureButton.addEventListener('click', () => {
             const context = canvas.getContext('2d');
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -108,11 +208,10 @@
             }, 'image/png');
         });
 
-        // Handle the form submission
         uploadForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(uploadForm);
-            const complainValue = complainInput.value.trim(); // Ensure complain is a string
+            const complainValue = complainInput.value.trim(); 
             formData.append('complain', complainValue);
 
             if (navigator.geolocation) {
@@ -120,7 +219,6 @@
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
 
-                    // Append location as JSON string
                     formData.append('location', JSON.stringify([{ latitude, longitude }]));
 
                     try {

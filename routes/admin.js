@@ -33,6 +33,19 @@ router.post('/create', async (req, res) => {
     return res.render('admin/createCollector', { user: req.user })
 })
 
+router.post('/delete/:collectorId', async (req, res) => {
+    const collectorId = req.params.collectorId;
+    await collectorModel.findByIdAndDelete(collectorId);
+    await assignModel.deleteMany({ assigneeId: collectorId })
+    return res.redirect('/admin/collector')
+})
+
+router.get('/update/:collectorId',async(req, res)=>{
+    const collectorId = req.params.collectorId;
+    const collector = await collectorModel.findById(collectorId);
+    return res.render('admin/updateCollector', { user: req.user, users: collector })
+})
+
 router.get('/collector', async (req, res) => {
     const collector = await collectorModel.find({})
     return res.render('admin/collectorList', { user: req.user, collectors: collector })
@@ -55,10 +68,39 @@ router.get('/complain', async (req, res) => {
     return res.render('admin/complain', { user: req.user, complains: complainInfo })
 })
 
+router.post('/complain/delete/:complainId', async (req, res) => {
+    try {
+        const complainId = req.params.complainId;
 
-router.get('/logout', (req, res) => {
-    res.clearCookie('token').redirect('/')
-})
+        // Find the complaint
+        const complain = await complainModel.findById(complainId);
+        if (!complain) {
+            return res.status(404).send('Complaint not found');
+        }
+
+        // Update the user document to remove the complaint from reports
+        const updateResult = await User.updateOne(
+            { _id: complain.createdBy },
+            {
+                $pull: {
+                    reports: { complain: complain.complain }
+                }
+            }
+        );
+
+        if (updateResult.modifiedCount === 0) {
+            console.log('User document was not updated. Report may not exist in user\'s reports.');
+        }
+
+        // Delete the complaint
+        await complainModel.findByIdAndDelete(complainId);
+
+        return res.redirect('/admin/complain');
+    } catch (error) {
+        console.error('Error deleting complaint:', error);
+        res.status(500).send('An error occurred while deleting the complaint');
+    }
+});
 
 router.post('/assign', async (req, res) => {
     try {
@@ -73,6 +115,7 @@ router.post('/assign', async (req, res) => {
 
         await assignModel.create({
             assignee: collector.firstname,
+            assigneeId: collectorId,
             assigner: user.firstname,
             task: complain.complain,
             status: "assigned",
@@ -80,6 +123,8 @@ router.post('/assign', async (req, res) => {
             location: complain.location,
             address: complain.address,
             complainID: complain._id,
+            weight: complain.weight,
+            category: complain.category
         });
 
         complain.status = "assigned";
@@ -93,8 +138,18 @@ router.post('/assign', async (req, res) => {
     }
 });
 
+function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 router.get('/drives', async (req, res) => {
     try {
+        const currentDate = getCurrentDate();
+        await driveModel.deleteMany({ date: { $lt: currentDate } });
         const drives = await driveModel.find({}).populate('appliedUsers', 'firstname lastname email');
         return res.render('admin/drives', { user: req.user, drives: drives });
     } catch (error) {
@@ -105,10 +160,14 @@ router.get('/drives', async (req, res) => {
 
 router.post('/drives', async (req, res) => {
     const { location, date, number } = req.body
-    await driveModel.create({ location, date, number })
-    const drives = await driveModel.find({})
-    return res.render('admin/drives', { user: req.user, drives: drives });
+    const currentDate = getCurrentDate();
+    if (date < currentDate) {
+        return res.status(400).send('Invalid date');
+    }
+    else { const drive = await driveModel.create({ location, date, number }) }
+    return res.redirect('/admin/drives');
 });
+
 router.get('/drives/:driveId/participants', async (req, res) => {
     try {
         const drive = await driveModel.findById(req.params.driveId).populate('appliedUsers', 'firstname lastname email');
@@ -142,6 +201,60 @@ router.post('/drives/delete/:driveId', async (req, res) => {
 router.get('/task', async (req, res) => {
     const task = await assignModel.find()
     return res.render('admin/taskAssigned', { task: task, user: req.user })
+})
+
+router.get('/analytic/:collectorId', async (req, res) => {
+    try {
+        const analytics = [];
+
+        const collectorId = req.params.collectorId;
+        const collector = await collectorModel.findById(collectorId)
+        const assignments = await assignModel.find({ assigneeId: collectorId });
+        const categoryCount = {
+            Electronic: 0,
+            Dry: 0,
+            Wet: 0,
+            Glass: 0,
+            Plastic: 0,
+            RadioActive: 0
+        };
+        const weightCount = {
+            'Under 1kg': 0,
+            '1-5kg': 0,
+            '5-10kg': 0,
+            'Above 10kg': 0
+        };
+
+        let totalTimeDiff = 0;
+        assignments.forEach(assignment => {
+            const timeDiff = assignment.updatedAt - assignment.createdAt;
+            totalTimeDiff += timeDiff;
+            categoryCount[assignment.category]++;
+            weightCount[assignment.weight]++;
+        });
+        const avgTimeToComplete = assignments.length > 0 ? totalTimeDiff / assignments.length : 0;
+        analytics.push({
+            collectorId: collectorId,
+            name: collector.firstname,
+            taskCompleted: collector.taskCompleted,
+            avgTimeToComplete: avgTimeToComplete,
+            categoryBreakdown: categoryCount,
+            weightBreakdown: weightCount
+        });
+
+
+        return res.render('admin/analytic', {
+            user: req.user,
+            analytics: analytics
+        });
+    } catch (error) {
+        console.error('Error fetching analytics:', error);
+        res.status(500).send('Error fetching analytics');
+    }
+});
+
+router.get('/logout', (req, res) => {
+    res.clearCookie('token').redirect('/')
 })
 
 

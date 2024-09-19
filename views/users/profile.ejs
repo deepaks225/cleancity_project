@@ -69,6 +69,12 @@
                         </h3>
                         <img src="<%= report.imageURL %>" alt="Litter Image">
                         <p><%= report.complain %></p>
+                        <p>
+                            <%= report.category %> Waste
+                        </p>
+                        <p>
+                            <%= report.weight %>
+                        </p>
                     </div>
                 <% }) %>
             <% } else { %>

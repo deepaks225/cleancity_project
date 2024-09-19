@@ -35,17 +35,25 @@ router.post('/update/:taskId', async (req, res) => {
     const task = await assignModel.findById(req.params.taskId);
     try {
         const updatedTask = await assignModel.findByIdAndUpdate(taskId, { status }, { new: true });
-        await complainModel.findOneAndUpdate({complain:task.task},{status},{new: true});
+        const ID = updatedTask.complainID
+        await complainModel.findByIdAndUpdate(
+            ID,
+            { status, isRead: false },
+            { new: true } 
+        );
+        const collector = await collectorModel.findById(req.user.id);
+        if(status === "completed"){
+            const taskCompletedByCollector = collector.taskCompleted+1;
+            await collectorModel.findByIdAndUpdate(req.user.id,{taskCompleted: taskCompletedByCollector})
+        }
         if (updatedTask) {
-            console.log("Success");
-            const collector = await collectorModel.findById(req.user.id);
             const tasks = await assignModel.find({ assignee: collector.firstname });
-            return res.render('collector/collectorAssigned', { user: req.user, tasks: tasks });
+            return res.redirect('/collector/task');
         } else {
             console.log("No task found");
             return res.status(404).send("Task not found");
         }
-     } catch (error) {
+    } catch (error) {
         console.error("Error updating status:", error);
         return res.status(500).send("Error updating status");
     }

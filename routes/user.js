@@ -6,11 +6,12 @@ const { complainModel } = require('../models/complain.js')
 const path = require('path');
 const drives = require('../models/drives.js');
 const fs = require('fs');
+const User = require('../models/user.js');
+
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const dir = 'public/images/uploads';
-        // Check if directory exists
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true }); // Create the directory if it doesn't exist
         }
@@ -76,7 +77,14 @@ router.post('/signup', upload.single('profilePicture'), async (req, res) => {
     const date = req.body.date;
 
     try {
-        const User = await user.create({ profilePicture: `/images/uploads/${req.file.filename}`, firstname: firstname, lastname: lastname, email: email, date: date, password: password });
+        if (req.file) {
+            const User = await user.create({ profilePicture: `/images/uploads/${req.file.filename}`, firstname: firstname, lastname: lastname, email: email, date: date, password: password });
+            await User.save()
+        }
+        else {
+            const User = await user.create({ firstname: firstname, lastname: lastname, email: email, date: date, password: password });
+            await User.save()
+        }
 
         return res.render('users/signin', { user: User });
     } catch (error) {
@@ -90,7 +98,7 @@ router.get('/capture', (req, res) => {
 })
 
 router.post('/upload', upload.single('image'), async (req, res) => {
-    const { complain, address, location } = req.body;
+    const { complain, address, location, category, weight } = req.body;
     const locationArray = JSON.parse(location);
 
     try {
@@ -105,12 +113,16 @@ router.post('/upload', upload.single('image'), async (req, res) => {
             createdBy: req.user.id,
             location: locationArray,
             date: Date.now(),
+            category: category,
+            weight: weight,
         });
         const newReports = {
             imageURL: `/images/uploads/${req.file.filename}`,
             complain: complain[1],
             address: address,
             date: Date.now(),
+            category: category,
+            weight: weight,
         };
 
 
@@ -224,7 +236,7 @@ router.post('/apply', async (req, res) => {
         );
         console.log(result)
 
-        res.render('users/drives',{user: req.user, drives: userDrives});
+        res.redirect('/drives');
     } catch (error) {
         console.error('Error applying to drive:', error);
         res.status(500).json({ message: 'An error occurred while applying to the drive' });

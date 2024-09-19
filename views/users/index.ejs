@@ -8,16 +8,30 @@
     <link rel="stylesheet" href="/navbar.css">
     <link rel="stylesheet" href="/user.css">
     <link rel="stylesheet" href="/hamburger.css">
+    <style>
+        body {
+            <% if (!locals.user) { %>
+                background-color: #e0f7fa; /* light blue background when not logged in */
+            <% } else { %>
+                background-color: #ffffff; /* white background when logged in */
+            <% } %>
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 
 <body>
     <header>
         <h1>CleanCity</h1>
-        <div class="hamburger" >
+        <div class="hamburger">
             <span></span>
             <span></span>
             <span></span>
         </div>
+        
         <% if (locals.user) { %>
             <nav id="main-nav">
                 <a href="/home">Home</a>
@@ -27,49 +41,65 @@
                 <a href="/drives">Cleaning Drives</a>
                 <a href="/logout">LogOut</a>
             </nav>
-            <% } else { %>
-                <nav id="main-nav">
-                    <a href="/">Home</a>
-                    <a href="/signin">SignIn</a>
-                    <a href="/signup">SignUp</a>
-                </nav>
-                <% } %>
+        <% } else { %>
+            <nav id="main-nav">
+                <a href="/">Home</a>
+                <a href="/signin">Sign In</a>
+                <a href="/signup">Sign Up</a>
+            </nav>
+        <% } %>
     </header>
 
     <main>
         <% if (!locals.user) { %>
-            <section id="home">
-                <h2>Welcome to CleanCity</h2>
-                <p>Help keep your city clean by reporting litter and participating in community cleaning drives.</p>
-            </section>
-            <% } else { %>
-                <section id="complaints">
-                    <div class="card-container">
-                        <% reversedData.slice(0, 9).forEach((item)=> { %>
-                            <div class="card">
-                                <div class="card-header">
-                                    <img src="<%= item.userInfo.profilePicture || '/images/default.png' %>"
-                                        alt="Profile Picture">
-                                    <span class="user-name">
-                                        <%= item.userInfo.firstname %>
-                                            <%= item.userInfo.lastname %>
-                                    </span>
-                                </div>
-                                <div class="card-image">
-                                    <img src="<%= item.complaint.imageURL %>" alt="Reported litter">
-                                </div>
-                                <div class="card-content">
-                                    <p>
-                                        <%= item.complaint.complain %>
-                                    </p>
-                                </div>
-                            </div>
-                            <% }) %>
-                    </div>
-                </section>
-                <% } %>
-    </main>
+            <div class="container">
+                <h2>Join Us in Keeping the City Clean</h2>
+                <p>Welcome to CleanCity, your go-to platform for reporting litter and making a difference in your community. Together, we can help keep our neighborhoods clean, safe, and beautiful. Whether you're reporting litter, participating in cleaning drives, or tracking your contributions, CleanCity is here to support you.</p>
+                
+                <div class="cta">
+                    <button onclick="window.location.href='/signup'">Sign Up to Report Litter</button>
+                </div>
 
+                <div class="features">
+                    <div class="feature-box">
+                        <h3>Report Litter</h3>
+                        <p>See litter in your neighborhood? Snap a picture, add a description, and report it with ease. Help us identify and address littering issues promptly.</p>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Join Cleaning Drives</h3>
+                        <p>Participate in community cleaning drives. Together, we can restore the beauty of our public spaces. Check upcoming drives in your area.</p>
+                    </div>
+                    <div class="feature-box">
+                        <h3>Track Reports</h3>
+                        <p>Stay updated on the status of your litter reports. Receive notifications as your submissions are addressed and tracked by our team.</p>
+                    </div>
+                </div>
+            </div>
+        <% } else { %>
+            <section id="complaints">
+                <div class="card-container">
+                    <% reversedData.slice(0, 9).forEach((item) => { %>
+                        <div class="card">
+                            <div class="card-header">
+                                <img src="<%= item.userInfo.profilePicture || '/images/default.png' %>" alt="Profile Picture">
+                                <span class="user-name">
+                                    <%= item.userInfo.firstname %> <%= item.userInfo.lastname %>
+                                </span>
+                            </div>
+                            <div class="card-image">
+                                <img src="<%= item.complaint.imageURL %>" alt="Reported litter">
+                            </div>
+                            <div class="card-content">
+                                <p>
+                                    <%= item.complaint.complain %>
+                                </p>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </section>
+        <% } %>
+    </main>
     <script>
         const hamburger = document.querySelector('.hamburger');
         const nav = document.getElementById('main-nav');

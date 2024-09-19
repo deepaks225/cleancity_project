@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collector Analytics</title>
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/hamburger.css">
+    <link rel="stylesheet" href="/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header class="analytics-header">
+        <h1>CleanCity</h1>
+
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <% if (locals.user) { %>
+            <nav id="main-nav">
+                <a href="/admin">Home</a>
+                <a href="/admin/collector">Collectors</a>
+                <a href="/admin/create">Create</a>
+                <a href="/admin/user">Users</a>
+                <a href="/admin/complain">Complains</a>
+                <a href="/admin/task">Tasks</a>
+                <a href="/admin/drives">Drives</a>
+                <a href="/admin/logout">Logout</a>
+            </nav>
+                <nav class="analytics-nav">
+                    <a href="/">Home</a>
+                    <a href="/signin">Signin</a>
+                    <a href="/signup">Signup</a>
+                </nav>
+                <% } %>
+    </header>
+
+    <main class="analytics-main">
+        <h1 class="analytics-title">Collector Analytics</h1>
+
+        <% if (analytics && analytics.length> 0) { %>
+            <% analytics.slice(0, 10).forEach(function (analytic) { %>
+                <div class="collector-analytics">
+                    <h2 class="collector-name">Collector: <%= analytic.name || 'Unknown' %>
+                    </h2>
+                    <p class="analytics-task">Total Tasks Completed: <%= analytic.taskCompleted || 0 %>
+                    </p>
+                    <p class="analytics-time">Average Time to Complete: <%= ((analytic.avgTimeToComplete || 0) / (1000 *
+                            60)).toFixed(2) %> minutes</p>
+
+                    <div class="charts-container">
+                        <div class="chart-wrapper">
+                            <h3 class="chart-title">Category Breakdown</h3>
+                            <canvas id="categoryChart-<%= analytic.collectorId %>"></canvas>
+                        </div>
+                        <div class="chart-wrapper">
+                            <h3 class="chart-title">Weight Breakdown</h3>
+                            <canvas id="weightChart-<%= analytic.collectorId %>"></canvas>
+                        </div>
+                    </div>
+
+                    <script>
+                        const hamburger = document.querySelector('.hamburger');
+                        const nav = document.getElementById('main-nav');
+
+                        hamburger.addEventListener('click', () => {
+                            hamburger.classList.toggle('active');
+                            nav.classList.toggle('active');
+
+                            (function () {
+                                var categoryData = <% - JSON.stringify(analytic.categoryBreakdown || {}) %>;
+                                var weightData = <% - JSON.stringify(analytic.weightBreakdown || {}) %>;
+
+                                // Category Chart
+                                new Chart(document.getElementById('categoryChart-<%= analytic.collectorId %>'), {
+                                    type: 'pie',
+                                    data: {
+                                        labels: Object.keys(categoryData),
+                                        datasets: [{
+                                            data: Object.values(categoryData),
+                                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40']
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false
+                                    }
+                                });
+
+                                // Weight Chart
+                                new Chart(document.getElementById('weightChart-<%= analytic.collectorId %>'), {
+                                    type: 'pie',
+                                    data: {
+                                        labels: Object.keys(weightData),
+                                        datasets: [{
+                                            data: Object.values(weightData),
+                                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false
+                                    }
+                                });
+                            })();
+                    </script>
+                </div>
+                <% }); %>
+                    <% } else { %>
+                        <p class="no-data">No analytics data available.</p>
+                        <% } %>
+    </main>
+</body>
+
+</html>

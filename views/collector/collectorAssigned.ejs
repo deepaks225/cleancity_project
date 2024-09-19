@@ -57,6 +57,12 @@
                                 <span>Longitude:</span>
                                 <%= task.location[0].longitude %>
                         </p>
+                        <p><strong>Category:</strong>
+                            <%= task.category %>
+                        </p>
+                        <p><strong>Weight:</strong>
+                            <%= task.weight %>
+                        </p>
                         <div class="task-buttons">
                             <a href="https://www.google.com/maps?q=<%= task.location[0].latitude %>,<%= task.location[0].longitude %>"
                                 target="_blank">

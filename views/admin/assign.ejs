@@ -48,6 +48,8 @@
                 <th>Complain</th>
                 <th>Location</th>
                 <th>Complain Date</th>
+                <th>Category</th>
+                <th>Weight</th>
                 <th>Assign</th>
             </tr>
             <% for (var i = 0; i < locals.complain.length; i++) { %>
@@ -57,6 +59,8 @@
                         <td><%= locals.complain[i].complain %></td>
                         <td>Latitude: <%= locals.complain[i].location[0].latitude %>, Longitude: <%= locals.complain[i].location[0].longitude %></td>
                         <td><%= locals.complain[i].createdAt %></td>
+                        <td><%= locals.complain[i].category %></td>
+                        <td><%= locals.complain[i].weight %></td>
                         <td>
                             <form action="/admin/assign" method="post">
                                 <input type="hidden" name="complainId" value="<%= locals.complain[i]._id %>">

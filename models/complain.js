@@ -37,8 +37,16 @@ const complainSchema = new Schema({
         type: String,
         default: "pending",
         required: true,
+    },
+    category: {
+        type: String,
+        required: true,
+    },
+    weight: {
+        type: String,
+        required: true,
     }
-},{timestamps: true})
+}, {timestamps: true})
 
 const complainModel = model('complain', complainSchema);
 
