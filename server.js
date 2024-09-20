@@ -71,11 +71,11 @@ app.use("/admin", restrictTo(["admin"]), adminRoute);
 app.use("/collector", restrictTo(["collector", "admin"]), collectorRoute);
 
 // Database connection
-mongoose
-    .connect("mongodb://localhost:27017/cleancity")
+mongoose.connect('mongodb+srv://deepaksingh271201:vuH5w36Za61TZBz8@deepaks225.ef371.mongodb.net/?retryWrites=true&w=majority&appName=deepaks225')
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.log(err));
 
 app.listen(port, () => {
+
     console.log(`Server running on port ${port}`);
 });
