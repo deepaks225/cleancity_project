@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,38 +9,40 @@
     <link rel="stylesheet" href="/collector.css">
     <link rel="stylesheet" href="/hamburger.css">
 </head>
+
 <body>
     <header>
         <h1>CleanCity</h1>
 
-        <div class="hamburger" >
+        <div class="hamburger">
             <span></span>
             <span></span>
             <span></span>
         </div>
 
         <% if (locals.user) { %>
-        <nav id="main-nav">
-            <a href="/collector/profile">Profile</a>
-            <a href="/collector/task">Tasks</a>
-            <a href="/collector/logout">Logout</a>
-        </nav>
+            <nav id="main-nav">
+                <a href="/collector/profile">Profile</a>
+                <a href="/collector/task">Tasks</a>
+                <a href="/collector/logout">Logout</a>
+            </nav>
         <% } else { %>
-        <nav id="main-nav">
-            <a href="/">Home</a>
-            <a href="/signin">Signin</a>
-            <a href="/signup">Signup</a>
-        </nav>
-        <% } %>
+                <nav id="main-nav">
+                    <a href="/">Home</a>
+                    <a href="/signin">Signin</a>
+                    <a href="/signup">Signup</a>
+                </nav>
+                <% } %>
     </header>
 
     <h2 class="update-status-title">Update Task Status</h2>
     <form class="update-status-form" action="/collector/update/<%= task._id %>" method="post">
         <label for="status">Enter Status:</label>
         <select name="status" id="status">
-            <option value="inProgress" <%= task.status === 'inProgress' ? 'selected' : '' %>>In Progress</option>
-            <option value="aboutToComplete" <%= task.status === 'aboutToComplete' ? 'selected' : '' %>>About To Complete</option>
-            <option value="completed" <%= task.status === 'completed' ? 'selected' : '' %>>Completed</option>
+            <option value="inProgress" <%=task.status==='inProgress' ? 'selected' : '' %>>In Progress</option>
+            <option value="aboutToComplete" <%=task.status==='aboutToComplete' ? 'selected' : '' %>>About To Complete
+            </option>
+            <option value="completed" <%=task.status==='completed' ? 'selected' : '' %>>Completed</option>
         </select>
         <button type="submit">Update</button>
     </form>
@@ -54,4 +57,5 @@
         });
     </script>
 </body>
+
 </html>

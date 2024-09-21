@@ -161,35 +161,40 @@ router.get('/update', async (req, res) => {
     }
 });
 
-router.post('/update', upload.single('profilePicture'), async (req, res) => {
-    const { firstname, lastname, email, date } = req.body;
-
+router.post('/update/:taskId', async (req, res) => {
     try {
-        if (!req.file) {
-            const updatedUser = await user.findByIdAndUpdate(req.user.id, {
-                firstname: firstname,
-                lastname: lastname,
-                email: email,
-                date: date,
-            }, { new: true });
-            req.user = updatedUser;
-            return res.render('users/profile', { user: req.user });
-        }
-        else {
-            const updatedUser = await user.findByIdAndUpdate(req.user.id, {
-                profilePicture: `/images/uploads/${req.file.filename}`,
-                firstname,
-                lastname,
-                email,
-                date
-            }, { new: true });
-            req.user = updatedUser;
-            return res.render('users/profile', { user: req.user });
+        const { status } = req.body;
+        console.log("Request body status:", status); // Log the received status from the request body
+
+        const taskId = req.params.taskId;
+        const task = await assignModel.findById(taskId);
+
+        if (!task) {
+            console.log("Task not found"); // Log if the task is not found
+            return res.status(404).send("Task not found");
         }
 
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        const updatedTask = await assignModel.findByIdAndUpdate(taskId, { status }, { new: true });
+        const complainID = updatedTask.complainID;
+
+        // Update the complain's status and mark it as unread
+        await complainModel.findByIdAndUpdate(complainID, { status, isRead: false }, { new: true });
+        console.log("Complain status updated"); // Log complain status update
+
+        const collector = await collectorModel.findById(req.user.id); // Fetch collector data
+
+        // Check if the status is 'completed' and update the taskCompleted field accordingly
+        if (status === STATUS_COMPLETED) {
+            const updatedTaskCount = collector.taskCompleted + 1; // Increment the taskCompleted count
+            await collectorModel.findByIdAndUpdate(req.user.id, { taskCompleted: updatedTaskCount }); // Update collector's completed task count
+            console.log("Collector task count updated"); // Log the task count update
+        }
+
+        // Redirect to the task page once everything is successful
+        return res.redirect('/collector/task');
+    } catch (error) {
+        console.error("Error updating status:", error); // Log any error encountered during the process
+        return res.status(500).send("Internal Server Error");
     }
 });
 
