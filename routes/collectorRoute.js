@@ -17,45 +17,49 @@ router.get('/profile', async (req, res) => {
 router.get('/update/:taskId', async (req, res) => {
     try {
         const task = await assignModel.findById(req.params.taskId);
-        const complain = await complainModel.find({complain:task.task})
         if (!task) {
-            return res.status(404).send("Task not found");
+            console.log(`Task not found for ID: ${req.params.taskId}`);
+            return res.status(404).render('error', { message: "Task not found" });
         }
-        return res.render('collector/collectorStatus', { user: req.user, task: task , complain: complain });
+        const complain = await complainModel.find({complain: task.task});
+        return res.render('collector/collectorStatus', { user: req.user, task: task, complain: complain });
     } catch (error) {
         console.error("Error fetching task:", error);
-        return res.status(500).send("Error fetching task");
+        return res.status(500).render('error', { message: "Error fetching task", error: error.message });
     }
 });
 
 router.post('/update/:taskId', async (req, res) => {
     const { status } = req.body;
-    console.log(req.body)
     const taskId = req.params.taskId;
-    const task = await assignModel.findById(req.params.taskId);
+    
     try {
+        const task = await assignModel.findById(taskId);
+        if (!task) {
+            console.log(`Task not found for ID: ${taskId}`);
+            return res.status(404).render('error', { message: "Task not found" });
+        }
+
         const updatedTask = await assignModel.findByIdAndUpdate(taskId, { status }, { new: true });
-        const ID = updatedTask.complainID
-        await complainModel.findByIdAndUpdate(
-            ID,
-            { status, isRead: false },
-            { new: true } 
-        );
+        const ID = updatedTask.complainID;
+        await complainModel.findByIdAndUpdate(ID, { status, isRead: false }, { new: true });
+
         const collector = await collectorModel.findById(req.user.id);
-        if(status === "completed"){
-            const taskCompletedByCollector = collector.taskCompleted+1;
-            await collectorModel.findByIdAndUpdate(req.user.id,{taskCompleted: taskCompletedByCollector})
+        if (!collector) {
+            console.log(`Collector not found for ID: ${req.user.id}`);
+            return res.status(404).render('error', { message: "Collector not found" });
         }
-        if (updatedTask) {
-            const tasks = await assignModel.find({ assignee: collector.firstname });
-            return res.redirect('/collector/task');
-        } else {
-            console.log("No task found");
-            return res.status(404).send("Task not found");
+
+        if (status === "completed") {
+            const taskCompletedByCollector = collector.taskCompleted + 1;
+            await collectorModel.findByIdAndUpdate(req.user.id, { taskCompleted: taskCompletedByCollector });
         }
+
+        const tasks = await assignModel.find({ assignee: collector.firstname });
+        return res.redirect('/collector/task');
     } catch (error) {
         console.error("Error updating status:", error);
-        return res.status(500).send("Error updating status");
+        return res.status(500).render('error', { message: "Error updating status", error: error.message });
     }
 });
 

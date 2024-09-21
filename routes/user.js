@@ -183,14 +183,13 @@ router.post('/update/:taskId', async (req, res) => {
 
         const collector = await collectorModel.findById(req.user.id); // Fetch collector data
 
-        // Check if the status is 'completed' and update the taskCompleted field accordingly
         if (status === STATUS_COMPLETED) {
-            const updatedTaskCount = collector.taskCompleted + 1; // Increment the taskCompleted count
-            await collectorModel.findByIdAndUpdate(req.user.id, { taskCompleted: updatedTaskCount }); // Update collector's completed task count
+            const updatedTaskCount = collector.taskCompleted + 1; 
+            await collectorModel.findByIdAndUpdate(req.user.id, { taskCompleted: updatedTaskCount }); 
             console.log("Collector task count updated"); // Log the task count update
         }
 
-        // Redirect to the task page once everything is successful
+        
         return res.redirect('/collector/task');
     } catch (error) {
         console.error("Error updating status:", error); // Log any error encountered during the process

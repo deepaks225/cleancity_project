@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -71,11 +72,7 @@ app.use("/admin", restrictTo(["admin"]), adminRoute);
 app.use("/collector", restrictTo(["collector", "admin"]), collectorRoute);
 
 // Database connection
-mongoose.connect('mongodb+srv://deepaksingh271201:vuH5w36Za61TZBz8@deepaks225.ef371.mongodb.net/?retryWrites=true&w=majority&appName=deepaks225')
-    .then(() => console.log("MongoDB connected"))
-    .catch((err) => console.log(err));
-
-app.listen(port, () => {
-
-    console.log(`Server running on port ${port}`);
-});
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
