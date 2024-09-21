@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 
 app.get("/signin", (req, res) => {
     return res.render("users/signin");
-});
+})
 
 app.post("/signin", async (req, res) => {
     try {
@@ -78,3 +78,7 @@ mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
