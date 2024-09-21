@@ -22,7 +22,7 @@ router.get('/update/:taskId', async (req, res) => {
             return res.status(404).render('error', { message: "Task not found" });
         }
         const complain = await complainModel.find({complain: task.task});
-        return res.render('collector/collectorStatus', { user: req.user, task: task, complain: complain });
+        return res.render('collector/collectorstatus', { user: req.user, task: task, complain: complain });
     } catch (error) {
         console.error("Error fetching task:", error);
         return res.status(500).render('error', { message: "Error fetching task", error: error.message });
