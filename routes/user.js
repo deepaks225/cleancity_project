@@ -8,8 +8,13 @@ const User = require('../models/user.js');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
-  
 
+cloudinary.config({
+    cloud_name: 'dbhbtrccn',
+    api_key: '466272138665527',
+    api_secret: 'B6UEwglvi3jT5LRCF04lSOzxfgs'
+ });  
+  
 // Set up Cloudinary storage for profile pictures and report images
 const profileStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
