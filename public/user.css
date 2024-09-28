@@ -1,4 +1,12 @@
-/* styling for users capture ejs*/
+#capture:hover,
+button[type="submit"],
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+.container,
+main {
+  max-width: 1200px;
+}
 h1 {
   margin: 0;
   font-size: 2rem;
@@ -8,8 +16,8 @@ div.inline {
   vertical-align: top;
   margin: 20px;
 }
-#video,
-#canvas {
+#canvas,
+#video {
   border: 2px solid #ddd;
   border-radius: 8px;
   width: 300px;
@@ -20,19 +28,16 @@ div.inline {
   margin: 10px auto;
   padding: 10px 20px;
   background-color: #4caf50;
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
-#capture:hover {
-  background-color: #45a049;
-}
 form {
-  background-color: white;
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin: 20px;
 }
 input[type="text"] {
@@ -50,20 +55,14 @@ button[type="submit"] {
   width: 100%;
   max-width: 80px;
   padding: 10px;
-  background-color: #45a049;
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
 }
-button[type="submit"]:hover {
-  background-color: #45a049;
-}
-/* styling for users drives ejs*/
 main {
   padding: 2rem;
-  max-width: 1200px;
   margin: auto;
 }
 #drives-section {
@@ -82,7 +81,7 @@ main {
 .drive-container:nth-child(odd) {
   background-color: #8eefbc;
 }
-.drive-container:nth-child(even) {
+.drive-container:nth-child(2n) {
   background-color: #a7c8db;
 }
 .drive-container h3 {
@@ -97,67 +96,59 @@ main {
 .drive-details strong {
   color: #333;
 }
-/* styling for users index ejs*/
 .container {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 50px 20px;
   text-align: center;
   background: rgba(255, 255, 255, 0.084);
   border-radius: 10px;
 }
-
+.card,
+.feature-box {
+  background-color: #fff;
+}
 .container h2 {
   font-size: 36px;
   margin-bottom: 20px;
   color: #2c3e50;
 }
-
 .container p {
   font-size: 18px;
   line-height: 1.6;
 }
-
 .cta {
   margin: 40px 0;
 }
-
 .cta button {
   padding: 15px 30px;
   font-size: 16px;
-  color: white;
+  color: #fff;
   background-color: #27ae60;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
-
 .cta button:hover {
   background-color: #2ecc71;
 }
-
 .features {
   display: flex;
   justify-content: space-around;
   margin-top: 50px;
   text-align: left;
 }
-
 .feature-box {
   width: 30%;
   padding: 20px;
-  background-color: white;
   border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-
 .feature-box h3 {
   font-size: 24px;
   margin-bottom: 10px;
   color: #2980b9;
 }
-
 .feature-box p {
   font-size: 16px;
 }
@@ -167,35 +158,19 @@ main {
   justify-content: space-between;
   gap: 1rem;
 }
-/* Styling for individual cards */
 .card {
-  background-color: #ffffff;
   border: 1px solid #dbdbdb;
   border-radius: 10px;
   overflow: hidden;
   width: calc(33.333% - 1rem);
   box-sizing: border-box;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
-/* Hover effect: subtle zoom and shadow */
 .card:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
-/* Responsiveness: adjust card size for tablets */
-@media (max-width: 768px) {
-  .card {
-    width: calc(50% - 1rem);
-  }
-}
-/* Responsiveness: adjust card size for mobile phones */
-@media (max-width: 480px) {
-  .card {
-    width: 100%;
-  }
-}
-/* Card header styling: user information */
 .card-header {
   display: flex;
   align-items: center;
@@ -203,7 +178,6 @@ main {
   background-color: #f7f7f7;
   border-bottom: 1px solid #dbdbdb;
 }
-/* Profile picture style */
 .card-header img {
   width: 50px;
   height: 50px;
@@ -213,24 +187,20 @@ main {
   border: 2px solid #007bff;
   padding: 2px;
 }
-/* Username styling */
 .user-name {
-  font-weight: bold;
+  font-weight: 700;
   font-size: 1.1rem;
   color: #333;
 }
-/* Card image: full width and responsive */
 .card-image img {
   width: 100%;
   height: auto;
   display: block;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s;
 }
-/* Image hover effect */
 .card-image img:hover {
   opacity: 0.85;
 }
-/* Card content: text styling */
 .card-content {
   padding: 1rem;
   color: #333;
@@ -241,14 +211,6 @@ main {
   line-height: 1.6;
   color: #555;
 }
-/* Adjust spacing between text for smaller screens */
-@media (max-width: 480px) {
-  .card-content p {
-    font-size: 0.95rem;
-    line-height: 1.4;
-  }
-}
-/* styling for users notification ejs*/
 .notifications-container {
   max-width: 800px;
   margin: 2rem auto;
@@ -257,29 +219,29 @@ main {
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
-/* Scoped styles for notifications */
+.post,
+.profile-container {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 .notifications-container .notification-item {
   background-color: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 1rem;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s, box-shadow 0.3s;
   position: relative;
 }
-/* Hover effect on notification item */
 .notifications-container .notification-item:hover {
   background-color: #f1f1f1;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-/* Scoped styles for the section title */
 .notifications-container h2 {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
   color: #333;
   text-align: center;
 }
-/* Unread dot indicator */
 .notifications-container .unread-dot {
   position: absolute;
   top: 15px;
@@ -290,62 +252,41 @@ main {
   border-radius: 50%;
   box-shadow: 0 0 6px rgba(255, 69, 0, 0.7);
 }
-/* Scoped styles for notification item title */
 .notifications-container h3 {
   margin: 0 0 0.5rem;
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 700;
   color: #007bff;
 }
-/* Scoped styles for text inside the notification */
 .notifications-container p {
   margin: 0.5rem 0;
   font-size: 1rem;
   color: #555;
   line-height: 1.6;
 }
-/* Status-specific styling */
 .notifications-container p.status {
-  font-weight: bold;
+  font-weight: 700;
   color: #555;
 }
-/* Message when no complaints exist */
 .notifications-container p.no-complaints {
   text-align: center;
   font-size: 1.2rem;
   color: #888;
 }
-/* Media query for responsive adjustments */
-@media (max-width: 480px) {
-  .notifications-container {
-    padding: 1rem;
-  }
-  .notifications-container .notification-item {
-    padding: 1rem;
-  }
-  .notifications-container h2 {
-    font-size: 1.6rem;
-  }
-  .notifications-container h3 {
-    font-size: 1.1rem;
-  }
-  .notifications-container p {
-    font-size: 0.95rem;
-  }
-}
-/* styling for users profile ejs*/
 .profile-container {
   max-width: 900px;
   margin: 20px auto;
-  background-color: white;
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.details-section,
+.profile-header {
+  margin-bottom: 20px;
 }
 .profile-header {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
   position: relative;
 }
 .profile-picture {
@@ -367,7 +308,7 @@ main {
   position: absolute;
   top: 0;
   right: 0;
-  background: none;
+  background: 0 0;
   border: none;
   font-size: 24px;
   color: #333;
@@ -379,15 +320,13 @@ main {
 .edit-button i:hover {
   color: #0056b3;
 }
-.details-section {
-  margin-bottom: 20px;
-}
 .details-section h2 {
   font-size: 22px;
   color: #333;
   margin-bottom: 10px;
 }
-.details-section p {
+.details-section p,
+.post p {
   color: #555;
 }
 .posts-section {
@@ -399,15 +338,14 @@ main {
   margin-bottom: 20px;
 }
 .post {
-  background-color: white;
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 15px;
   margin-bottom: 20px;
 }
 .post h3 {
   font-size: 20px;
-  margin: 0 0 10px 0;
+  margin: 0 0 10px;
   color: #333;
 }
 .post img {
@@ -415,10 +353,6 @@ main {
   border-radius: 5px;
   margin-bottom: 10px;
 }
-.post p {
-  color: #555;
-}
-/* styling for users update ejs*/
 .profile-update-container {
   display: flex;
   justify-content: center;
@@ -427,15 +361,14 @@ main {
   background: #f7f7f7;
   padding: 1rem;
 }
-/* Main form wrapper */
 .profile-update {
-  background-color: #ffffff;
+  background-color: #fff;
   padding: 2.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   width: 100%;
-  font-family: "Roboto", sans-serif;
+  font-family: Roboto, sans-serif;
 }
 .profile-update h2 {
   text-align: center;
@@ -445,37 +378,33 @@ main {
   margin-bottom: 1.5rem;
   position: relative;
 }
-/* Form layout */
 .profile-update form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
-/* Label styling */
 .profile-update label {
   font-size: 1rem;
   color: #444;
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
-/* Input styling */
-.profile-update input[type="text"],
-.profile-update input[type="email"],
 .profile-update input[type="date"],
-.profile-update input[type="file"] {
+.profile-update input[type="email"],
+.profile-update input[type="file"],
+.profile-update input[type="text"] {
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  transition: 0.3s;
   width: 100%;
 }
 .profile-update input:focus {
   border-color: #66afe9;
-  outline: none;
+  outline: 0;
   box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
 }
-/* Styling the file input */
 .profile-update input[type="file"] {
   padding: 0.5rem;
   border: none;
@@ -483,38 +412,37 @@ main {
 .profile-update input[type="file"]::file-selector-button {
   padding: 0.75rem 1.25rem;
   background-color: #4caf50;
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 .profile-update input[type="file"]::file-selector-button:hover {
   background-color: #43a047;
 }
-/* Button styling */
 .profile-update button {
   padding: 0.9rem;
   background-color: #007bff;
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 .profile-update button:hover {
   background-color: #0056b3;
 }
-/* Add subtle animations to button and inputs */
-.profile-update input,
-.profile-update button {
-  transition: all 0.3s ease;
+.profile-update button,
+.profile-update input {
+  transition: 0.3s;
 }
-/* Mobile responsive adjustments */
 @media (max-width: 768px) {
+  .card {
+    width: calc(50% - 1rem);
+  }
   .profile-update {
     padding: 2rem;
   }
@@ -523,14 +451,34 @@ main {
   }
 }
 @media (max-width: 480px) {
+  .card {
+    width: 100%;
+  }
+  .card-content p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  .notifications-container,
+  .notifications-container .notification-item {
+    padding: 1rem;
+  }
+  .notifications-container h2 {
+    font-size: 1.6rem;
+  }
+  .notifications-container h3 {
+    font-size: 1.1rem;
+  }
+  .notifications-container p {
+    font-size: 0.95rem;
+  }
   .profile-update {
     padding: 1.5rem;
   }
   .profile-update h2 {
     font-size: 1.3rem;
   }
-  .profile-update input,
-  .profile-update button {
+  .profile-update button,
+  .profile-update input {
     font-size: 0.9rem;
   }
 }

@@ -1,4 +1,7 @@
-/* styling for collectorAssigned ejs*/
+.task-image img,
+.task-item {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
 .task-container {
   max-width: 1200px;
   margin: 3rem auto;
@@ -16,7 +19,6 @@
   background-color: #fdfdfd;
   border-radius: 15px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .task-item:hover {
   transform: translateY(-10px);
@@ -40,7 +42,7 @@
   color: #999;
 }
 .task-details .coordinates span {
-  font-weight: bold;
+  font-weight: 700;
   color: #333;
 }
 .task-image {
@@ -52,7 +54,6 @@
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .task-image img:hover {
   transform: scale(1.05);
@@ -63,15 +64,16 @@
   gap: 1.5rem;
   margin-top: 1.5rem;
 }
-.task-buttons a, .task-buttons button {
+.task-buttons a,
+.task-buttons button {
   padding: 0.8rem 1.5rem;
   border-radius: 30px;
-  font-weight: bold;
+  font-weight: 700;
   text-decoration: none;
   color: #fff;
   text-align: center;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  transition: 0.3s;
   cursor: pointer;
 }
 .task-buttons a {
@@ -88,7 +90,8 @@
 .google-maps-button a:hover {
   background-color: #c0392b;
 }
-.google-maps-button a, .google-maps-button button {
+.google-maps-button a,
+.google-maps-button button {
   display: inline-block;
 }
 .task-buttons .google-maps-button {
@@ -106,7 +109,6 @@ hr {
   font-size: 1.5rem;
   margin-top: 4rem;
 }
-/* styling for collectorStatus ejs*/
 .update-status-title {
   text-align: center;
   margin-top: 2rem;
@@ -135,7 +137,7 @@ hr {
   border-radius: 8px;
   border: 1px solid #ccc;
   background-color: #f9f9f9;
-  transition: border 0.3s ease;
+  transition: border 0.3s;
 }
 .update-status-form select:focus {
   border-color: #1abc9c;
@@ -149,35 +151,37 @@ hr {
   border: none;
   border-radius: 8px;
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 .update-status-form button:hover {
   background-color: #16a085;
 }
 @media (max-width: 600px) {
   .update-status-form {
-      padding: 1.5rem;
- }
+    padding: 1.5rem;
+  }
   .update-status-form button {
-      padding: 0.75rem;
-      font-size: 1rem;
- }
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
 }
-/* styling for collectorProfile ejs*/
 .profile-container {
   max-width: 900px;
   margin: 20px auto;
-  background-color: white;
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+.details-section,
+.profile-header {
+  margin-bottom: 20px;
+}
 .profile-header {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
 }
 .profile-picture {
   flex-shrink: 0;
@@ -197,9 +201,6 @@ hr {
 .profile-info p {
   color: #666;
   margin: 5px 0;
-}
-.details-section {
-  margin-bottom: 20px;
 }
 .details-section h2 {
   font-size: 22px;

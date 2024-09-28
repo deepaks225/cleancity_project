@@ -13,14 +13,21 @@ const user = require("./models/user.js");
 const { collectorModel } = require("./models/collector.js");
 const collectorRoute = require("./routes/collectorRoute.js");
 const path = require("path");
-app.use(express.static(path.join(__dirname, "public")));
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// Cloudinary configuration
+cloudinary.config({
+    cloud_name: 'dbhbtrccn',
+    api_key: '466272138665527',
+    api_secret: 'B6UEwglvi3jT5LRCF04lSOzxfgs'
+  });
+  
+
+app.use(express.static(path.join(__dirname, "public")));
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-console.log('Views directory contents:');
-console.log(fs.readdirSync(path.join(__dirname, 'views')));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -73,11 +80,9 @@ app.use("/", userRoute);
 app.use("/admin", restrictTo(["admin"]), adminRoute);
 app.use("/collector", restrictTo(["collector", "admin"]), collectorRoute);
 
+
 // Database connection
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
+mongoose.connect('mongodb+srv://deepaksingh271201:vuH5w36Za61TZBz8@deepaks225.ef371.mongodb.net/?retryWrites=true&w=majority&appName=deepaks225')
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

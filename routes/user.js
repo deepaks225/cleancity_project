@@ -1,39 +1,52 @@
 const express = require('express');
 const router = express.Router();
-const user = require('../models/user.js')
-const multer = require('multer')
-const { complainModel } = require('../models/complain.js')
+const user = require('../models/user.js');
+const { complainModel } = require('../models/complain.js');
 const path = require('path');
 const drives = require('../models/drives.js');
-const fs = require('fs');
 const User = require('../models/user.js');
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
+// Cloudinary configuration
+cloudinary.config({
+    cloud_name: 'dbhbtrccn',
+    api_key: '466272138665527',
+    api_secret: 'B6UEwglvi3jT5LRCF04lSOzxfgs'
+ });  
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const dir = 'public/images/uploads';
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true }); // Create the directory if it doesn't exist
-        }
-        cb(null, dir);
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname)); // Custom filename with timestamp
-    }
+// Set up Cloudinary storage for profile pictures and report images
+const profileStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'profile_pictures', // Cloudinary folder name
+    allowed_formats: ['jpeg', 'png', 'jpg']
+  }
 });
 
+const reportStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'litter_reports', // Cloudinary folder name
+    allowed_formats: ['jpeg', 'png', 'jpg']
+  }
+});
 
-const upload = multer({ storage: storage });
+// Multer middleware for Cloudinary storage
+const uploadProfilePicture = multer({ storage: profileStorage });
+const uploadReportImage = multer({ storage: reportStorage });
 
 router.get('/', (req, res) => {
-    return res.render('users/index')
-})
+    return res.render('users/index');
+});
+
 router.get('/profile', async (req, res) => {
     const User = await user.findById(req.user.id);
     return res.render('users/profile', {
         user: User,
     });
-})
+});
 
 router.get('/home', async (req, res) => {
     try {
@@ -66,27 +79,29 @@ router.get('/home', async (req, res) => {
 });
 
 router.get('/signup', (req, res) => {
-    return res.render('users/signup')
-})
-router.post('/signup', upload.single('profilePicture'), async (req, res) => {
+    return res.render('users/signup');
+});
 
-    const firstname = req.body.firstname;
-    const lastname = req.body.lastname;
-    const password = req.body.password;
-    const email = req.body.email;
-    const date = req.body.date;
+router.post('/signup', uploadProfilePicture.single('profilePicture'), async (req, res) => {
+    const { firstname, lastname, password, email, date } = req.body;
 
     try {
+        let newUserData = {
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            date: date,
+            password: password,
+        };
+
         if (req.file) {
-            const User = await user.create({ profilePicture: `/images/uploads/${req.file.filename}`, firstname: firstname, lastname: lastname, email: email, date: date, password: password });
-            await User.save()
-        }
-        else {
-            const User = await user.create({ firstname: firstname, lastname: lastname, email: email, date: date, password: password });
-            await User.save()
+            newUserData.profilePicture = req.file.path; // Cloudinary URL
         }
 
-        return res.render('users/signin', { user: User });
+        const newUser = await user.create(newUserData);
+        await newUser.save();
+
+        return res.render('users/signin', { user: newUser });
     } catch (error) {
         console.error(error);
         return res.status(500).send("Error occurred while creating the user.");
@@ -94,10 +109,10 @@ router.post('/signup', upload.single('profilePicture'), async (req, res) => {
 });
 
 router.get('/capture', (req, res) => {
-    return res.render('users/capture', { user: req.user })
-})
+    return res.render('users/capture', { user: req.user });
+});
 
-router.post('/upload', upload.single('image'), async (req, res) => {
+router.post('/upload', uploadReportImage.single('image'), async (req, res) => {
     const { complain, address, location, category, weight } = req.body;
     const locationArray = JSON.parse(location);
 
@@ -107,7 +122,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
         }
 
         await complainModel.create({
-            imageURL: `/images/uploads/${req.file.filename}`,
+            imageURL: req.file.path, // Cloudinary URL
             complain: complain[1],
             address: address,
             createdBy: req.user.id,
@@ -116,15 +131,15 @@ router.post('/upload', upload.single('image'), async (req, res) => {
             category: category,
             weight: weight,
         });
+
         const newReports = {
-            imageURL: `/images/uploads/${req.file.filename}`,
+            imageURL: req.file.path, // Cloudinary URL
             complain: complain[1],
             address: address,
             date: Date.now(),
             category: category,
             weight: weight,
         };
-
 
         await user.findByIdAndUpdate(
             req.user.id,
@@ -148,8 +163,6 @@ router.get('/drives', async (req, res) => {
         res.status(500).render('error', { message: 'An error occurred while fetching drives' });
     }
 });
-
-
 
 router.get('/update', async (req, res) => {
     try {

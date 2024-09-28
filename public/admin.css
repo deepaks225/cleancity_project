@@ -1,4 +1,11 @@
-/* styling for admin ejs*/
+.analytics-title,
+.assign-btn,
+.chart-title,
+.no-data,
+.signup-box,
+footer {
+  text-align: center;
+}
 .admin-container {
   width: 80%;
   margin: auto;
@@ -17,7 +24,7 @@
 }
 .collector-name {
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 700;
 }
 .assign-btn {
   display: inline-block;
@@ -26,31 +33,26 @@
   padding: 2px;
   border-radius: 50px;
   margin: 0;
-  text-align: center;
   line-height: 30px;
   text-decoration: none;
   background-color: #007bff;
-  color: white;
+  color: #fff;
   transition: background-color 0.3s;
+}
+.analytics-main,
+.container.collector-list {
+  padding: 20px;
+  margin: auto;
+  max-width: 1200px;
 }
 .assign-btn:hover {
   background-color: #0056b3;
 }
-
-/* styling for analytics ejs*/
-.analytics-main {
-  padding: 20px;
-  max-width: 1200px;
-  margin: auto;
-}
-
 .analytics-title {
-  text-align: center;
   margin-bottom: 30px;
   font-size: 2em;
   color: #333;
 }
-
 .collector-analytics {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
@@ -59,20 +61,21 @@
   margin-bottom: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-
 .analytics-task,
 .analytics-time {
   color: #555;
   margin: 5px 0;
 }
-
+.chart-title,
+.user-info {
+  margin-bottom: 10px;
+}
 .charts-container {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
 }
-
 .chart-wrapper {
   flex: 1 1 45%;
   background-color: #fff;
@@ -81,220 +84,159 @@
   padding: 10px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
-
-.chart-title {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
 .no-data {
-  text-align: center;
   font-size: 1.2em;
   color: #777;
 }
-
-@media (max-width: 768px) {
-  .charts-container {
-    flex-direction: column;
-  }
-
-  .chart-wrapper {
-    flex: 1 1 100%;
-  }
-}
-
-/* styling for assign ejs*/
-tr,
+td,
 th,
-td {
-  border: 1px solid black;
+tr {
+  border: 1px solid #000;
 }
-
-/* styling for collectorlist ejs*/
 .container.collector-list {
-  padding: 20px;
-  max-width: 1200px; 
-  margin: auto;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
 }
-
-
 .user-card {
-  background-color: #f9f9f9;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
   flex: 1 1 300px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
 }
-
+.complain-card,
+.form-container input,
+.signup-box {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.action-button,
+.signup-box button[type="submit"] {
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
 .user-card:hover {
   transform: scale(1.02);
 }
-.user-info {
-  margin-bottom: 10px;
+.complain-card:hover,
+.drive-item:hover,
+.form-container:hover,
+.glass:hover {
+  transform: translateY(-5px);
 }
-
+.user-area,
 .user-email,
-.user-role,
-.user-area {
+.user-role {
   color: #555;
 }
-
-
 .user-actions {
   display: flex;
   gap: 10px;
   margin-top: 15px;
 }
-
 .action-button {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #4caf50;
+  color: #fff;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
-
+.complain-image,
+.complain-text {
+  border-bottom: 1px solid #e4e6eb;
+}
 .action-button:hover {
-  background-color: #45a049; 
+  background-color: #45a049;
 }
-
 .delete-button {
-  background-color: #f44336; 
+  background-color: #f44336;
 }
-
+.complain-card,
+table {
+  background-color: #fff;
+}
 .delete-button:hover {
-  background-color: #d32f2f; 
+  background-color: #d32f2f;
 }
-
-
-@media (max-width: 768px) {
-  .collector-nav {
-      flex-direction: column; 
-  }
-
-  .user-card {
-      flex: 1 1 100%; 
-  }
-}
-
-
-/* styling for complain ejs*/
 .complain-container {
   max-width: 1200px;
   margin: 40px auto;
   padding: 0 20px;
 }
-
 .cards-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 25px;
   justify-content: center;
 }
-
 .complain-card {
-  background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.2s ease-in-out;
   width: 100%;
   max-width: 400px;
 }
-
-.complain-card:hover {
-  transform: translateY(-5px);
-}
-
-
 .cards-wrapper:only-child .complain-card {
   margin: 0 auto;
 }
-
 @media (min-width: 768px) {
   .cards-wrapper {
-      justify-content: flex-start;
+    justify-content: flex-start;
   }
-  
   .complain-card {
-      width: calc(50% - 12.5px);
-      max-width: none;
+    width: calc(50% - 12.5px);
+    max-width: none;
   }
 }
-
 @media (min-width: 1024px) {
   .complain-card {
-      width: calc(33.333% - 16.67px);
+    width: calc(33.333% - 16.67px);
   }
 }
-
 .complain-text {
   font-size: 16px;
   padding: 20px;
   margin: 0;
   color: #4a4a4a;
-  border-bottom: 1px solid #e4e6eb;
 }
-
 .complain-date {
   font-size: 13px;
   color: #65676b;
   padding: 10px 20px;
   background-color: #f7f8fa;
 }
-
-
 .complain-image {
   width: 100%;
   height: auto;
   display: block;
   border-top: 1px solid #e4e6eb;
-  border-bottom: 1px solid #e4e6eb;
 }
-
-
 .complain-address,
 .complain-category,
-.complain-weight,
-.complain-status {
+.complain-status,
+.complain-weight {
   font-size: 14px;
   padding: 10px 20px;
   margin: 0;
   border-bottom: 1px solid #e4e6eb;
 }
-
-
 .complain-status {
   font-weight: 600;
   color: #1877f2;
 }
-
-
 .delete-btn {
   width: 100%;
   padding: 12px;
   background-color: #e41e3f;
-  color: white;
+  color: #fff;
   border: none;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
   transition: background-color 0.2s ease-in-out;
 }
-
 .delete-btn:hover {
   background-color: #c41a36;
 }
-
-
-/* styling for createcollector ejs*/
 .signup-container {
   margin-top: 120px;
   display: flex;
@@ -306,8 +248,6 @@ td {
   background-color: #198754;
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
 }
 .signup-box img {
   width: 80px;
@@ -317,12 +257,12 @@ td {
 .signup-box h2 {
   font-size: 22px;
   margin-top: 10px;
-  color: white;
+  color: #fff;
 }
-.signup-box input[type="text"],
-.signup-box input[type="email"],
 .signup-box input[type="date"],
-.signup-box input[type="password"] {
+.signup-box input[type="email"],
+.signup-box input[type="password"],
+.signup-box input[type="text"] {
   width: 100%;
   padding: 12px;
   margin: 8px 0;
@@ -330,31 +270,27 @@ td {
   font-size: 16px;
   border: none;
   border-bottom: 2px solid #ccc;
-  background: transparent;
-  color: white;
-  outline: none;
+  background: 0 0;
+  color: #fff;
+  outline: 0;
 }
 .signup-box input::placeholder {
-  color: white;
+  color: #fff;
 }
 .signup-box button[type="submit"] {
   width: 100%;
   padding: 12px;
   background-color: #4f2aad;
-  /* Purple log in button */
-  color: white;
+  color: #fff;
   font-size: 18px;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
   margin-top: 10px;
 }
 .signup-box button[type="submit"]:hover {
   background-color: #3c217f;
 }
 footer {
-  text-align: center;
   margin-top: 20px;
 }
 @media (max-width: 600px) {
@@ -363,7 +299,6 @@ footer {
     padding: 20px;
   }
 }
-/* styling for admin drives ejs*/
 .drives-container {
   max-width: 1100px;
   margin: 0 auto;
@@ -376,10 +311,9 @@ footer {
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 .glass:hover {
-  transform: translateY(-5px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 .form-container {
@@ -389,11 +323,10 @@ footer {
   backdrop-filter: blur(8px) saturate(200%);
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 .form-container:hover {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  transform: translateY(-5px);
 }
 .form-container label {
   font-size: 1.3rem;
@@ -407,12 +340,11 @@ footer {
   margin-bottom: 20px;
   border-radius: 10px;
   border: none;
-  outline: none;
+  outline: 0;
   font-size: 1.1rem;
   background-color: rgba(255, 255, 255, 0.6);
   color: #2c3e50;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 .form-container input:focus {
   background-color: rgba(255, 255, 255, 0.8);
@@ -420,13 +352,13 @@ footer {
 }
 .form-container button {
   background: linear-gradient(135deg, #3498db, #2980b9);
-  color: white;
+  color: #fff;
   padding: 12px 20px;
   font-size: 1.1rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: 0.3s;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 180px;
@@ -448,11 +380,10 @@ footer {
   backdrop-filter: blur(6px) saturate(180%);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.25);
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 .drive-item:hover {
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
-  transform: translateY(-5px);
 }
 .drive-item h3 {
   color: #2c3e50;
@@ -467,14 +398,18 @@ footer {
 }
 .drive-item button {
   background-color: #1abc9c;
-  color: white;
+  color: #fff;
   padding: 10px 18px;
   font-size: 1.1rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: 0.3s;
   box-shadow: 0 4px 12px rgba(26, 188, 156, 0.3);
+}
+hr,
+tr:hover {
+  background-color: #ddd;
 }
 .drive-item button:hover {
   background-color: #16a085;
@@ -501,14 +436,17 @@ footer {
   background-color: rgba(0, 0, 0, 0.6);
   padding-top: 60px;
 }
-.modal-content {
+.modal-content,
+.user-card {
   background-color: rgba(255, 255, 255, 0.9);
+}
+.modal-content {
   margin: auto;
   padding: 30px;
   border-radius: 15px;
   max-width: 600px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  animation: fadeIn 0.4s ease-out;
+  animation: 0.4s ease-out fadeIn;
 }
 .modal-content h2 {
   font-size: 1.8rem;
@@ -529,6 +467,14 @@ footer {
   color: #000;
 }
 @media (max-width: 768px) {
+  .charts-container,
+  .collector-nav {
+    flex-direction: column;
+  }
+  .chart-wrapper,
+  .user-card {
+    flex: 1 1 100%;
+  }
   .drives-list {
     grid-template-columns: 1fr;
   }
@@ -536,16 +482,14 @@ footer {
     padding: 20px;
   }
 }
-/* styling for taskassigned ejs*/
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 2rem;
-  background-color: #fff;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
-th,
-td {
+td,
+th {
   padding: 1rem;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -554,15 +498,10 @@ th {
   background-color: #333;
   color: #fff;
 }
-tr:nth-child(even) {
+tr:nth-child(2n) {
   background-color: #f2f2f2;
 }
-tr:hover {
-  background-color: #ddd;
-}
-/* styling for userslist ejs*/
 .user-card {
-  background-color: rgba(255, 255, 255, 0.9);
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -575,5 +514,4 @@ tr:hover {
 hr {
   border: 0;
   height: 1px;
-  background-color: #ddd;
 }
