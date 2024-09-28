@@ -47,6 +47,35 @@ router.get('/profile', async (req, res) => {
     });
 });
 
+router.post('/update', uploadProfilePicture.single('profilePicture'), async (req, res) => {
+    const { firstname, lastname, email, date } = req.body;
+
+    try {
+        // Find the user by ID
+        const userInfo = await user.findById(req.user.id);
+
+        if (!userInfo) {
+            return res.status(404).send('User not found');
+        }
+
+        userInfo.firstname = firstname || userInfo.firstname;
+        userInfo.lastname = lastname || userInfo.lastname;
+        userInfo.email = email || userInfo.email;
+        userInfo.date = date || userInfo.date;
+
+        if (req.file) {
+            userInfo.profilePicture = req.file.path; 
+        }
+        await userInfo.save();
+
+        return res.redirect('/profile');
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        return res.status(500).send('An error occurred while updating the profile.');
+    }
+});
+
+
 router.get('/home', async (req, res) => {
     try {
         const complaints = await complainModel.find({});
