@@ -16,14 +16,6 @@ const path = require("path");
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-// Cloudinary configuration
-cloudinary.config({
-    cloud_name: 'dbhbtrccn',
-    api_key: '466272138665527',
-    api_secret: 'B6UEwglvi3jT5LRCF04lSOzxfgs'
-  });
-  
-
 app.use(express.static(path.join(__dirname, "public")));
 
 app.set("views", path.join(__dirname, "views"));
