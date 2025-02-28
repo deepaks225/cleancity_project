@@ -17,9 +17,9 @@ const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 cloudinary.config({
-    cloud_name: 'dbhbtrccn',
-    api_key: '466272138665527',
-    api_secret: 'B6UEwglvi3jT5LRCF04lSOzxfgs'
+    cloud_name: '',
+    api_key: '',
+    api_secret: ''
   });
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -80,7 +80,7 @@ app.use("/collector", restrictTo(["collector", "admin"]), collectorRoute);
 
 
 // Database connection
-mongoose.connect('mongodb+srv://deepaksingh271201:vuH5w36Za61TZBz8@deepaks225.ef371.mongodb.net/?retryWrites=true&w=majority&appName=deepaks225')
+mongoose.connect('mongodb+srv://')
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
